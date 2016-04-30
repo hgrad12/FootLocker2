@@ -5,21 +5,50 @@
  */
 package footlocker2;
 
+import java.awt.HeadlessException;
 import java.awt.Window;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
  * @author hgrad
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame{
+     final String userName="gkoutr2";//put your MySQL user name
+        final String password="Cosc*cd5w";//put your MySQL password
+     private static Connection connection=null;
+            /**
+     * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.sql.SQLException
+     */
+
     
+    /**
+     * @param args the command line arguments
+     * * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.sql.SQLException
+     */
     boolean manager;
 
     /**
      * Creates new form Main
      */
     public Main() {
+      
         initComponents();
     }
 
@@ -258,7 +287,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(empIdText, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                                     .addComponent(passwordText))))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         loginPaneLayout.setVerticalGroup(
             loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +304,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
                     .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addComponent(mainSubmitButton)
                 .addGap(27, 27, 27))
         );
@@ -317,7 +346,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(emplMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(emplInvButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manRUOButton, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
         emplMainPanelLayout.setVerticalGroup(
             emplMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +356,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(emplInvButton)
                 .addGap(40, 40, 40)
                 .addComponent(manRUOButton)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
 
         getContentPane().add(emplMainPanel, "card3");
@@ -375,7 +404,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(manMainInventoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(manageEmplButton))))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
         managerMainPanelLayout.setVerticalGroup(
             managerMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +416,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(29, 29, 29)
                 .addComponent(manageEmplButton)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         getContentPane().add(managerMainPanel, "card4");
@@ -425,7 +454,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(420, Short.MAX_VALUE))
         );
         inventoryPanelLayout.setVerticalGroup(
             inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,7 +464,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton4)
                 .addGap(30, 30, 30)
                 .addComponent(jButton5)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
 
         getContentPane().add(inventoryPanel, "card5");
@@ -506,7 +535,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(catgDropdown, 0, 190, Short.MAX_VALUE)
                                     .addComponent(brandDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,7 +562,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchSubmitButton)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         getContentPane().add(searchPanel, "card6");
@@ -570,7 +599,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanelLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(194, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -582,7 +611,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(resultsBackButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addGap(0, 169, Short.MAX_VALUE))
         );
 
         getContentPane().add(resultsPanel, "card7");
@@ -660,7 +689,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(RUOPanelLayout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(continueWithoutButton)))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
         RUOPanelLayout.setVerticalGroup(
             RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,7 +717,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(continueWithoutButton)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         getContentPane().add(RUOPanel, "card8");
@@ -755,7 +784,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(rewardsCartPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(cartBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cartLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -797,9 +826,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(cartText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addButton))
-                    .addGroup(rewardsCartPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -884,7 +911,7 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(cartButton1)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cartLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(18, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartPanelLayout.createSequentialGroup()
                         .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, cartPanelLayout.createSequentialGroup()
@@ -967,7 +994,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(MIBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, manageInventoryPanelLayout.createSequentialGroup()
-                .addGap(0, 116, Short.MAX_VALUE)
+                .addGap(0, 448, Short.MAX_VALUE)
                 .addGroup(manageInventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MIRemoveItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MIAddItemsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -981,7 +1008,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(MIAddItemsButton)
                 .addGap(37, 37, 37)
                 .addComponent(MIRemoveItemButton)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         getContentPane().add(manageInventoryPanel, "card11");
@@ -1003,9 +1030,20 @@ public class Main extends javax.swing.JFrame {
 
         addItemBrandLabel.setText("Brand: ");
 
+        addItemNameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemNameTextActionPerformed(evt);
+            }
+        });
+
         addItemSizeLabel.setText("Size: ");
 
         addSizeButton.setText("Add Size");
+        addSizeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSizeButtonActionPerformed(evt);
+            }
+        });
 
         addItemQtyLabel.setText("Qty: ");
 
@@ -1036,7 +1074,7 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(addSizeButton)
                                 .addComponent(addItemSizeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE)
                         .addComponent(addItemQtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addItemQtyText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1075,7 +1113,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(addItemQtyText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addSizeButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(addItemSubmitButton)
                 .addContainerGap())
         );
@@ -1124,7 +1162,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(removeItemPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeItemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(357, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeItemPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1142,7 +1180,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(removeItemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeItemSearchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
                 .addComponent(removeItemButton)
                 .addContainerGap())
         );
@@ -1182,7 +1220,7 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(removeEmplIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removeEmplSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 108, Short.MAX_VALUE))
+                .addGap(0, 352, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeEmplPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(removeEmplButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1200,7 +1238,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(removeEmplIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeEmplSearchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addComponent(removeEmplButton)
                 .addContainerGap())
         );
@@ -1248,7 +1286,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(manageEmplRemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manageEmplAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manageEmplUpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
         manageEmplPanalLayout.setVerticalGroup(
             manageEmplPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1260,7 +1298,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(manageEmplAddButton)
                 .addGap(18, 18, 18)
                 .addComponent(manageEmplRemoveButton)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 263, Short.MAX_VALUE))
         );
 
         getContentPane().add(manageEmplPanal, "card15");
@@ -1366,7 +1404,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(UEBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
                         .addComponent(UELabel, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 206, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmplPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(UESubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1416,7 +1454,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UEShoesLabel)
                     .addComponent(UEShoesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(UESubmitButton)
                 .addContainerGap())
         );
@@ -1524,7 +1562,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(AEBackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
                         .addComponent(UELabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 206, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addEmplPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(UESubmitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1764,15 +1802,65 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         String fname = RUOFirstNameText.getText();
         String lname = RUOLastNameText.getText();
-        String phone = RUOPhoneText.getText();
+        String email = RUOPhoneText.getText();
+        int custID = 1;
+       // String query;
+       PreparedStatement query;
+        /**
+     * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.sql.SQLException
+     */
+
+        
         if((fname.equals("") || lname.equals("")) || 
-                phone.equals("")){
+                email.equals("")){
             showMessageDialog(null, "You need to supply the right info!");
+            
         }else{
+            
+           // query = "insert into Customer  values (1, 'g', 'j',' k', 'g@yahoo.com', '123 york rd', null, null)";
+            //System.out.println(query);
+            custID++;
             RUOPanel.setVisible(false);
             rewardsCartPanel.setVisible(true);
-        }
+            try {
+                query = connection.prepareStatement("INSERT INTO Customer (Customer_ID, fname, lname, email) VALUES (?, ?, ?, ?)");
+                query.setInt(1, 1);
+                query.setString(2, fname);
+                query.setString(3, lname);
+                query.setString(4, email);
+                query.executeUpdate();
+                
+                        
+                        //("INSERT INTO `Customer`(`fname`, `lname`, `email`) VALUES ('"+ fname+"','"+lname + "','" + email+"')");
+            
+                /*
+            Object newInstance;
+            newInstance = Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+            connection = DriverManager.getConnection("jdbc:mysql://triton.towson.edu:3360/gkoutr2db", userName, password);// Please use your database name here
+            PreparedStatement updateStaff;
+            Statement queryStatement = connection.createStatement();
+            queryStatement.executeQuery(query);
+        
+            JOptionPane.showMessageDialog(this, "Saved");
+             */
+             //Connection c = FootLocker2.getConnection();
+            //Statement stmt = c.createStatement();
+            
+      
+            //stmt.executeUpdate(query);
+            }
+          catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+          
     }//GEN-LAST:event_RUOSubmitButtonActionPerformed
+    }
 
     private void continueWithoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueWithoutButtonActionPerformed
         // TODO add your handling code here:
@@ -1959,10 +2047,22 @@ public class Main extends javax.swing.JFrame {
         manageEmplPanal.setVisible(true);
     }//GEN-LAST:event_UESubmitButton1ActionPerformed
 
+    private void addSizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSizeButtonActionPerformed
+        String itemNameText = addItemNameText.getText();
+        System.out.println(itemNameText);
+        String itemQuery = "INSERT INTO P VALUES (itemNameText, test)";
+        
+    }//GEN-LAST:event_addSizeButtonActionPerformed
+
+    private void addItemNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemNameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemNameTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1986,6 +2086,21 @@ public class Main extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        Object newInstance;
+            newInstance = Class.forName("com.mysql.jdbc.Driver").newInstance();
+            connection = DriverManager.getConnection("jdbc:mysql://triton.towson.edu:3360/gkoutr2db", "gkoutr2", "Cosc*cd5w");// Please use your database name here
+            PreparedStatement updateStaff;
+            Statement queryStatement = connection.createStatement();
+            updateStaff = null;
+            String querys="select * from gkoutr2db.P;";
+            ResultSet results = queryStatement.executeQuery(querys);
+            while(results.next())
+            {
+                System.out.print(results.getString("p_num"));
+                System.out.print("    ");
+                System.out.print(results.getString("pname"));
+                System.out.println();
+            } 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

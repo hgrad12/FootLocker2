@@ -18,7 +18,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,49,0,0,2,9"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-110,0,0,2,-85"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
@@ -66,7 +66,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <EmptySpace pref="208" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -87,7 +87,7 @@
                       <Component id="passwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="passwordText" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace pref="141" max="32767" attributes="0"/>
                   <Component id="mainSubmitButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
@@ -165,7 +165,7 @@
                       <Component id="emplInvButton" max="32767" attributes="0"/>
                       <Component id="manRUOButton" pref="150" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="153" max="32767" attributes="0"/>
+                  <EmptySpace pref="401" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -177,7 +177,7 @@
                   <Component id="emplInvButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="manRUOButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="53" max="32767" attributes="0"/>
+                  <EmptySpace pref="278" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -234,7 +234,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="172" max="32767" attributes="0"/>
+                  <EmptySpace pref="379" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -248,7 +248,7 @@
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="manageEmplButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="61" max="32767" attributes="0"/>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -308,7 +308,7 @@
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" pref="139" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                  <EmptySpace pref="420" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -320,7 +320,7 @@
                   <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
+                  <EmptySpace pref="289" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -403,7 +403,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace pref="333" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -438,7 +438,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="searchSubmitButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                  <EmptySpace pref="162" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -529,7 +529,7 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace pref="194" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="453" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
@@ -544,7 +544,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="165" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="45" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="169" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -664,7 +664,7 @@
                           <Component id="continueWithoutButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="122" max="32767" attributes="0"/>
+                  <EmptySpace pref="371" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -697,7 +697,7 @@
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="continueWithoutButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="165" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -795,7 +795,7 @@
                           <Component id="cartBackButton" min="-2" pref="94" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="cartLabel" min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="481" max="-2" attributes="0"/>
@@ -850,10 +850,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="addButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="151" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane2" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1026,7 +1023,7 @@
                               </Group>
                               <Component id="cartLabel1" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="18" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -1224,7 +1221,7 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="116" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="448" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="MIRemoveItemButton" min="-2" pref="125" max="-2" attributes="0"/>
                       <Component id="MIAddItemsButton" min="-2" pref="125" max="-2" attributes="0"/>
@@ -1241,7 +1238,7 @@
                   <Component id="MIAddItemsButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="MIRemoveItemButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace pref="291" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1309,7 +1306,7 @@
                                   <Component id="addItemSizeDropdown" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="42" max="32767" attributes="0"/>
+                          <EmptySpace pref="289" max="32767" attributes="0"/>
                           <Component id="addItemQtyLabel" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1360,7 +1357,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="addSizeButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace pref="119" max="32767" attributes="0"/>
                   <Component id="addItemSubmitButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1401,6 +1398,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="addItemNameText">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addItemNameTextActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="addItemCatgText">
         </Component>
@@ -1422,6 +1422,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Size"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addSizeButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="addItemQtyLabel">
           <Properties>
@@ -1466,7 +1469,7 @@
                           <Component id="removeItemIDText" min="-2" pref="152" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="130" max="32767" attributes="0"/>
+                  <EmptySpace pref="357" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -1489,7 +1492,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="removeItemSearchButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="92" max="32767" attributes="0"/>
+                  <EmptySpace pref="246" max="32767" attributes="0"/>
                   <Component id="removeItemButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1562,7 +1565,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="108" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="352" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -1585,7 +1588,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="removeEmplSearchButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="113" max="32767" attributes="0"/>
+                  <EmptySpace pref="240" max="32767" attributes="0"/>
                   <Component id="removeEmplButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1650,7 +1653,7 @@
                       <Component id="manageEmplAddButton" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="manageEmplUpdateButton" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="148" max="32767" attributes="0"/>
+                  <EmptySpace pref="391" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1664,7 +1667,7 @@
                   <Component id="manageEmplAddButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="manageEmplRemoveButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="39" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="263" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1785,7 +1788,7 @@
                           <Component id="UELabel" min="-2" pref="241" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="206" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
@@ -1850,7 +1853,7 @@
                       <Component id="UEShoesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="UEShoesText" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <EmptySpace pref="113" max="32767" attributes="0"/>
                   <Component id="UESubmitButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -2042,7 +2045,7 @@
                           <Component id="UELabel1" min="-2" pref="241" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="206" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
