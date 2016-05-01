@@ -8,8 +8,12 @@ package footlocker2;
 import footlocker2.SQLMethods;
 import java.awt.Window;
 import java.sql.SQLException;
+import net.proteanit.sql.DbUtils;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -19,7 +23,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class Main extends javax.swing.JFrame {
     
     boolean manager;
-
     /**
      * Creates new form Main
      */
@@ -62,7 +65,25 @@ public class Main extends javax.swing.JFrame {
         searchPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         brandDropdown = new javax.swing.JComboBox();
+        try{
+            SQLMethods dbconn = new SQLMethods();
+            List<String> ls = dbconn.populateBrandDD();
+            brandDropdown.setModel(new DefaultComboBoxModel(ls.toArray()));
+            dbconn.closeDBConnection();
+        }catch (SQLException err){
+            System.out.println( err.getMessage( ) );
+        }
+
         catgDropdown = new javax.swing.JComboBox();
+        try{
+            SQLMethods dbconn = new SQLMethods();
+            List<String> ls = dbconn.populateCatgDD();
+            catgDropdown.setModel(new DefaultComboBoxModel(ls.toArray()));
+            dbconn.closeDBConnection();
+        }catch (SQLException err){
+            System.out.println( err.getMessage( ) );
+        }
+
         jLabel2 = new javax.swing.JLabel();
         searchLabel2 = new javax.swing.JLabel();
         searchText2 = new javax.swing.JTextField();
@@ -70,6 +91,7 @@ public class Main extends javax.swing.JFrame {
         searchBackButton = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        catgSearchButton = new javax.swing.JButton();
         resultsPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -146,13 +168,12 @@ public class Main extends javax.swing.JFrame {
         removeItemIDText = new javax.swing.JTextField();
         removeItemSearchButton = new javax.swing.JButton();
         removeItemButton = new javax.swing.JButton();
-        removeEmplPanel = new javax.swing.JPanel();
+        removeSearchEmplPanel = new javax.swing.JPanel();
         removeEmplBackButton = new javax.swing.JButton();
         removeEmplLabel = new javax.swing.JLabel();
         removeEmployeeIDLabel = new javax.swing.JLabel();
         removeEmplIDText = new javax.swing.JTextField();
         removeEmplSearchButton = new javax.swing.JButton();
-        removeEmplButton = new javax.swing.JButton();
         manageEmplPanal = new javax.swing.JPanel();
         manageEmplBackButton = new javax.swing.JButton();
         manageEmplUpdateButton = new javax.swing.JButton();
@@ -204,6 +225,35 @@ public class Main extends javax.swing.JFrame {
         UEAddressLabel1 = new javax.swing.JLabel();
         UEPayText1 = new javax.swing.JTextField();
         UEGenderLabel1 = new javax.swing.JLabel();
+        searchEmplPanel = new javax.swing.JPanel();
+        removeEmplBackButton1 = new javax.swing.JButton();
+        removeEmplLabel1 = new javax.swing.JLabel();
+        removeEmployeeIDLabel1 = new javax.swing.JLabel();
+        removeEmplIDText1 = new javax.swing.JTextField();
+        removeEmplSearchButton1 = new javax.swing.JButton();
+        removeEmplPanel = new javax.swing.JPanel();
+        UEAddressText2 = new javax.swing.JTextField();
+        UENameLabel2 = new javax.swing.JLabel();
+        UEPayText2 = new javax.swing.JTextField();
+        UEPhoneLabel2 = new javax.swing.JLabel();
+        UEAssessLabel2 = new javax.swing.JLabel();
+        UEAddressLabel2 = new javax.swing.JLabel();
+        UEAssessText2 = new javax.swing.JTextField();
+        UEGenderLabel2 = new javax.swing.JLabel();
+        UEApparelLabel2 = new javax.swing.JLabel();
+        UEPositionLabel2 = new javax.swing.JLabel();
+        UEApparelText2 = new javax.swing.JTextField();
+        UEPayLabel2 = new javax.swing.JLabel();
+        UEShoesLabel2 = new javax.swing.JLabel();
+        UEPositionText2 = new javax.swing.JTextField();
+        UEShoesText2 = new javax.swing.JTextField();
+        UENameText2 = new javax.swing.JTextField();
+        UESubmitButton2 = new javax.swing.JButton();
+        UECommissionLabel2 = new javax.swing.JLabel();
+        UEBackButton1 = new javax.swing.JButton();
+        UEPhoneText2 = new javax.swing.JTextField();
+        UELabel2 = new javax.swing.JLabel();
+        removeEmplGenderText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -456,6 +506,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        catgDropdown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catgDropdownActionPerformed(evt);
+            }
+        });
+
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("OR");
 
@@ -479,6 +535,13 @@ public class Main extends javax.swing.JFrame {
 
         jLabel21.setText("Category: ");
 
+        catgSearchButton.setText("Search");
+        catgSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catgSearchButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
@@ -486,32 +549,29 @@ public class Main extends javax.swing.JFrame {
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchPanelLayout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(searchPanelLayout.createSequentialGroup()
                         .addComponent(searchBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(searchPanelLayout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(searchSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(searchPanelLayout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addComponent(searchLabel2)
-                                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(searchPanelLayout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addComponent(searchSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(searchPanelLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(searchPanelLayout.createSequentialGroup()
-                                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(catgDropdown, 0, 190, Short.MAX_VALUE)
-                                    .addComponent(brandDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20)
+                            .addComponent(searchLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(searchText2)
+                            .addComponent(catgDropdown, 0, 190, Short.MAX_VALUE)
+                            .addComponent(brandDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(searchPanelLayout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(searchPanelLayout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(catgSearchButton)))
                 .addContainerGap(350, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
@@ -532,14 +592,16 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(catgDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel21))
                 .addGap(18, 18, 18)
+                .addComponent(catgSearchButton)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchLabel2)
-                    .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchSubmitButton)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         getContentPane().add(searchPanel, "card6");
@@ -553,7 +615,7 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Quantity", "Gender", "Size"
+                "ID#", "Item", "Gender", "Size", "Quantity"
             }
         ));
         jScrollPane1.setViewportView(resultsTable);
@@ -1166,50 +1228,53 @@ public class Main extends javax.swing.JFrame {
 
         removeEmployeeIDLabel.setText("Employee ID: ");
 
+        removeEmplIDText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplIDTextActionPerformed(evt);
+            }
+        });
+
         removeEmplSearchButton.setText("Search");
+        removeEmplSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplSearchButtonActionPerformed(evt);
+            }
+        });
 
-        removeEmplButton.setText("Remove");
-
-        javax.swing.GroupLayout removeEmplPanelLayout = new javax.swing.GroupLayout(removeEmplPanel);
-        removeEmplPanel.setLayout(removeEmplPanelLayout);
-        removeEmplPanelLayout.setHorizontalGroup(
-            removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removeEmplPanelLayout.createSequentialGroup()
-                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout removeSearchEmplPanelLayout = new javax.swing.GroupLayout(removeSearchEmplPanel);
+        removeSearchEmplPanel.setLayout(removeSearchEmplPanelLayout);
+        removeSearchEmplPanelLayout.setHorizontalGroup(
+            removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeSearchEmplPanelLayout.createSequentialGroup()
+                .addGroup(removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(removeSearchEmplPanelLayout.createSequentialGroup()
                         .addComponent(removeEmplBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(removeEmplLabel))
-                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                    .addGroup(removeSearchEmplPanelLayout.createSequentialGroup()
                         .addComponent(removeEmployeeIDLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(removeEmplIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(removeEmplSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 369, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeEmplPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removeEmplButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
-        removeEmplPanelLayout.setVerticalGroup(
-            removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removeEmplPanelLayout.createSequentialGroup()
-                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        removeSearchEmplPanelLayout.setVerticalGroup(
+            removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeSearchEmplPanelLayout.createSequentialGroup()
+                .addGroup(removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeEmplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeEmplBackButton))
                 .addGap(27, 27, 27)
-                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(removeSearchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeEmployeeIDLabel)
                     .addComponent(removeEmplIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeEmplSearchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
-                .addComponent(removeEmplButton)
-                .addContainerGap())
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
-        getContentPane().add(removeEmplPanel, "card14");
+        getContentPane().add(removeSearchEmplPanel, "card14");
 
         manageEmplBackButton.setText("Back");
         manageEmplBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1585,6 +1650,220 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(addEmplPanel, "card17");
 
+        removeEmplBackButton1.setText("Back");
+        removeEmplBackButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplBackButton1ActionPerformed(evt);
+            }
+        });
+
+        removeEmplLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        removeEmplLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        removeEmplLabel1.setText("Search Employee");
+
+        removeEmployeeIDLabel1.setText("Employee ID: ");
+
+        removeEmplSearchButton1.setText("Search");
+        removeEmplSearchButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplSearchButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout searchEmplPanelLayout = new javax.swing.GroupLayout(searchEmplPanel);
+        searchEmplPanel.setLayout(searchEmplPanelLayout);
+        searchEmplPanelLayout.setHorizontalGroup(
+            searchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchEmplPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(removeEmplBackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140)
+                .addComponent(removeEmplLabel1)
+                .addGap(256, 256, 256))
+            .addGroup(searchEmplPanelLayout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(removeEmployeeIDLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(searchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeEmplIDText1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeEmplSearchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        searchEmplPanelLayout.setVerticalGroup(
+            searchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchEmplPanelLayout.createSequentialGroup()
+                .addGroup(searchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeEmplLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeEmplBackButton1))
+                .addGap(18, 18, 18)
+                .addGroup(searchEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removeEmployeeIDLabel1)
+                    .addComponent(removeEmplIDText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeEmplSearchButton1)
+                .addContainerGap(284, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(searchEmplPanel, "card18");
+
+        UENameLabel2.setText("Name:");
+
+        UEPhoneLabel2.setText("Phone #: ");
+
+        UEAssessLabel2.setText("Assess:");
+
+        UEAddressLabel2.setText("Address: ");
+
+        UEGenderLabel2.setText("Gender: ");
+
+        UEApparelLabel2.setText("Apparel: ");
+
+        UEPositionLabel2.setText("Position: ");
+
+        UEPayLabel2.setText("Base Pay: ");
+
+        UEShoesLabel2.setText("Shoes: ");
+
+        UENameText2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UENameText2ActionPerformed(evt);
+            }
+        });
+
+        UESubmitButton2.setText("Remove");
+        UESubmitButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UESubmitButton2ActionPerformed(evt);
+            }
+        });
+
+        UECommissionLabel2.setText("Commission: ");
+
+        UEBackButton1.setText("Back");
+        UEBackButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UEBackButton1ActionPerformed(evt);
+            }
+        });
+
+        UELabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        UELabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        UELabel2.setText("Remove Employee");
+
+        javax.swing.GroupLayout removeEmplPanelLayout = new javax.swing.GroupLayout(removeEmplPanel);
+        removeEmplPanel.setLayout(removeEmplPanelLayout);
+        removeEmplPanelLayout.setHorizontalGroup(
+            removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, removeEmplPanelLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addComponent(UEGenderLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(removeEmplGenderText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addComponent(UEPhoneLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(UEPhoneText2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addComponent(UEAddressLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(UEAddressText2))
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addComponent(UENameLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(UENameText2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UEPositionLabel2)
+                                    .addComponent(UEPayLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(UEPositionText2)
+                                    .addComponent(UEPayText2, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(UEAssessLabel2)
+                                    .addComponent(UECommissionLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(UEAssessText2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                        .addComponent(UEShoesLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(UEShoesText2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                                        .addComponent(UEApparelLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(UEApparelText2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, removeEmplPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(UEBackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(UELabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 195, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeEmplPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UESubmitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        removeEmplPanelLayout.setVerticalGroup(
+            removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(UELabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(UEBackButton1)))
+                .addGap(18, 18, 18)
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UENameLabel2)
+                    .addComponent(UEPositionLabel2)
+                    .addComponent(UEPositionText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UENameText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UEPhoneLabel2)
+                    .addComponent(UEPayLabel2)
+                    .addComponent(UEPhoneText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UEPayText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UEAddressLabel2)
+                    .addComponent(UECommissionLabel2)
+                    .addComponent(UEAddressText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UEGenderLabel2)
+                            .addComponent(removeEmplGenderText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(removeEmplPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UEAssessLabel2)
+                            .addComponent(UEAssessText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UEApparelLabel2)
+                            .addComponent(UEApparelText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(removeEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UEShoesLabel2)
+                    .addComponent(UEShoesText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(UESubmitButton2)
+                .addContainerGap())
+        );
+
+        getContentPane().add(removeEmplPanel, "card19");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -1798,15 +2077,20 @@ public class Main extends javax.swing.JFrame {
 
     private void searchSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchSubmitButtonActionPerformed
         // TODO add your handling code here:
-        String cb1 = brandDropdown.getSelectedItem().toString();
-        String cb2 = catgDropdown.getSelectedItem().toString();
+        
         String searchBox = searchText2.getText();
-        if((cb1.equals("") || cb2.equals("")) || searchBox.equals("")){
-            showMessageDialog(null, "You need to supply the right info!");
-        }else{
-            resultsPanel.setVisible(true);
-            searchPanel.setVisible(false);
+        if(!searchBox.equals("")){
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                resultsTable.setModel(DbUtils.resultSetToTableModel(dbconn.populateResultsTableBS(searchBox)));
+                dbconn.closeDBConnection();
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+        resultsPanel.setVisible(true);
+        searchPanel.setVisible(false);
         }
+
     }//GEN-LAST:event_searchSubmitButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1878,7 +2162,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         removeEmplIDText.setText("");
         
-        removeEmplPanel.setVisible(false);
+        removeSearchEmplPanel.setVisible(false);
         manageEmplPanal.setVisible(true);
     }//GEN-LAST:event_removeEmplBackButtonActionPerformed
 
@@ -1903,7 +2187,7 @@ public class Main extends javax.swing.JFrame {
     private void manageEmplRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmplRemoveButtonActionPerformed
         // TODO add your handling code here:
         manageEmplPanal.setVisible(false);
-        removeEmplPanel.setVisible(true);
+        removeSearchEmplPanel.setVisible(true);
         
     }//GEN-LAST:event_manageEmplRemoveButtonActionPerformed
 
@@ -1975,6 +2259,126 @@ public class Main extends javax.swing.JFrame {
         manageEmplPanal.setVisible(true);
     }//GEN-LAST:event_UESubmitButton1ActionPerformed
 
+    private void catgDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catgDropdownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_catgDropdownActionPerformed
+
+    private void catgSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catgSearchButtonActionPerformed
+        // TODO add your handling code here:
+        String bd = brandDropdown.getSelectedItem().toString();
+        String cg = catgDropdown.getSelectedItem().toString();
+        if(!bd.equals("") && !cg.equals("")){
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                resultsTable.setModel(DbUtils.resultSetToTableModel(dbconn.populateResultsTable(bd, cg)));
+                dbconn.closeDBConnection();
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+        resultsPanel.setVisible(true);
+        searchPanel.setVisible(false);
+        }
+
+    }//GEN-LAST:event_catgSearchButtonActionPerformed
+
+    private void removeEmplBackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplBackButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeEmplBackButton1ActionPerformed
+
+    private void removeEmplSearchButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplSearchButton1ActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_removeEmplSearchButton1ActionPerformed
+
+    private void removeEmplSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplSearchButtonActionPerformed
+        // TODO add your handling code here:
+         String empl = removeEmplIDText.getText();
+         Employee emp;
+        
+        if(!empl.equals("")){
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                if(dbconn.verifyEmpl(empl)){
+                    emp = new Employee(dbconn.getEmpl(empl));
+                    UENameText2.setText(emp.getfname() +" "+emp.getMinit()+". "+emp.getlname());
+                    String phone = emp.getPhone().substring(0, 3)+ "-"+emp.getPhone().substring(3, 6)+"-"+emp.getPhone().substring(6, emp.getPhone().length());
+                    UEPhoneText2.setText(phone);
+                    UEAddressText2.setText(emp.getAddress());
+                    UEPositionText2.setText(emp.getPosition());
+                    UEPayText2.setText(String.valueOf(emp.getBase()));
+                    removeEmplGenderText.setText(emp.getGender());
+                    UEAssessText2.setText(String.valueOf(emp.getAccess()));
+                    UEApparelText2.setText(String.valueOf(emp.getApperal()));
+                    UEShoesText2.setText(String.valueOf(emp.getShoes()));
+                    
+                    removeSearchEmplPanel.setVisible(false);
+                    removeEmplPanel.setVisible(true);
+                }else{
+                    showMessageDialog(null, "The employee ented is not listed in the system!");
+                    removeEmplIDText.setText("");
+                }
+                dbconn.closeDBConnection();
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+
+            
+        }
+    }//GEN-LAST:event_removeEmplSearchButtonActionPerformed
+
+    private void UENameText2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UENameText2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UENameText2ActionPerformed
+
+    private void UESubmitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UESubmitButton2ActionPerformed
+        // TODO add your handling code here:
+        String empl = removeEmplIDText.getText();
+        if(!empl.equals("")){
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                dbconn.removeEmpl(empl);
+            }catch (SQLException err){
+                    System.out.println( err.getMessage( ) );
+                }
+            showMessageDialog(null, "The employee has been removed!");
+            UENameText2.setText("");
+            UEPhoneText2.setText("");
+            UEAddressText2.setText("");
+            UEPositionText2.setText("");
+            UEPayText2.setText("");
+            removeEmplGenderText.setText("");
+            UEAssessText2.setText("");
+            UEApparelText2.setText("");
+            UEShoesText2.setText("");
+            removeEmplIDText.setText("");
+            
+            removeEmplPanel.setVisible(false);
+            removeSearchEmplPanel.setVisible(true);
+        }
+        
+        
+    }//GEN-LAST:event_UESubmitButton2ActionPerformed
+
+    private void UEBackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UEBackButton1ActionPerformed
+        // TODO add your handling code here:
+        UENameText2.setText("");
+        UEPhoneText2.setText("");
+        UEAddressText2.setText("");
+        UEPositionText2.setText("");
+        UEPayText2.setText("");
+        removeEmplGenderText.setText("");
+        UEAssessText2.setText("");
+        UEApparelText2.setText("");
+        UEShoesText2.setText("");
+        
+        removeEmplPanel.setVisible(false);
+        removeSearchEmplPanel.setVisible(true);
+    }//GEN-LAST:event_UEBackButton1ActionPerformed
+
+    private void removeEmplIDTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplIDTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeEmplIDTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2029,47 +2433,68 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton RUOSubmitButton;
     private javax.swing.JLabel UEAddressLabel;
     private javax.swing.JLabel UEAddressLabel1;
+    private javax.swing.JLabel UEAddressLabel2;
     private javax.swing.JTextField UEAddressText;
     private javax.swing.JTextField UEAddressText1;
+    private javax.swing.JTextField UEAddressText2;
     private javax.swing.JLabel UEApparelLabel;
     private javax.swing.JLabel UEApparelLabel1;
+    private javax.swing.JLabel UEApparelLabel2;
     private javax.swing.JTextField UEApparelText;
     private javax.swing.JTextField UEApparelText1;
+    private javax.swing.JTextField UEApparelText2;
     private javax.swing.JLabel UEAssessLabel;
     private javax.swing.JLabel UEAssessLabel1;
+    private javax.swing.JLabel UEAssessLabel2;
     private javax.swing.JTextField UEAssessText;
     private javax.swing.JTextField UEAssessText1;
+    private javax.swing.JTextField UEAssessText2;
     private javax.swing.JButton UEBackButton;
+    private javax.swing.JButton UEBackButton1;
     private javax.swing.JLabel UECommissionLabel;
     private javax.swing.JLabel UECommissionLabel1;
+    private javax.swing.JLabel UECommissionLabel2;
     private javax.swing.JComboBox UEGenderDropdown;
     private javax.swing.JComboBox UEGenderDropdown1;
     private javax.swing.JLabel UEGenderLabel;
     private javax.swing.JLabel UEGenderLabel1;
+    private javax.swing.JLabel UEGenderLabel2;
     private javax.swing.JLabel UELabel;
     private javax.swing.JLabel UELabel1;
+    private javax.swing.JLabel UELabel2;
     private javax.swing.JLabel UENameLabel;
     private javax.swing.JLabel UENameLabel1;
+    private javax.swing.JLabel UENameLabel2;
     private javax.swing.JTextField UENameText;
     private javax.swing.JTextField UENameText1;
+    private javax.swing.JTextField UENameText2;
     private javax.swing.JLabel UEPayLabel;
     private javax.swing.JLabel UEPayLabel1;
+    private javax.swing.JLabel UEPayLabel2;
     private javax.swing.JTextField UEPayText;
     private javax.swing.JTextField UEPayText1;
+    private javax.swing.JTextField UEPayText2;
     private javax.swing.JLabel UEPhoneLabel;
     private javax.swing.JLabel UEPhoneLabel1;
+    private javax.swing.JLabel UEPhoneLabel2;
     private javax.swing.JTextField UEPhoneText;
     private javax.swing.JTextField UEPhoneText1;
+    private javax.swing.JTextField UEPhoneText2;
     private javax.swing.JLabel UEPositionLabel;
     private javax.swing.JLabel UEPositionLabel1;
+    private javax.swing.JLabel UEPositionLabel2;
     private javax.swing.JTextField UEPositionText;
     private javax.swing.JTextField UEPositionText1;
+    private javax.swing.JTextField UEPositionText2;
     private javax.swing.JLabel UEShoesLabel;
     private javax.swing.JLabel UEShoesLabel1;
+    private javax.swing.JLabel UEShoesLabel2;
     private javax.swing.JTextField UEShoesText;
     private javax.swing.JTextField UEShoesText1;
+    private javax.swing.JTextField UEShoesText2;
     private javax.swing.JButton UESubmitButton;
     private javax.swing.JButton UESubmitButton1;
+    private javax.swing.JButton UESubmitButton2;
     private javax.swing.JButton addButton;
     private javax.swing.JButton addButton1;
     private javax.swing.JPanel addEmplPanel;
@@ -2100,6 +2525,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField cartText;
     private javax.swing.JTextField cartText1;
     private javax.swing.JComboBox catgDropdown;
+    private javax.swing.JButton catgSearchButton;
     private javax.swing.JButton continueWithoutButton;
     private javax.swing.JTextField empIdText;
     private javax.swing.JButton empSignOutButton;
@@ -2156,12 +2582,17 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField passwordText;
     private javax.swing.JButton removeEmplBackButton;
-    private javax.swing.JButton removeEmplButton;
+    private javax.swing.JButton removeEmplBackButton1;
+    private javax.swing.JTextField removeEmplGenderText;
     private javax.swing.JTextField removeEmplIDText;
+    private javax.swing.JTextField removeEmplIDText1;
     private javax.swing.JLabel removeEmplLabel;
+    private javax.swing.JLabel removeEmplLabel1;
     private javax.swing.JPanel removeEmplPanel;
     private javax.swing.JButton removeEmplSearchButton;
+    private javax.swing.JButton removeEmplSearchButton1;
     private javax.swing.JLabel removeEmployeeIDLabel;
+    private javax.swing.JLabel removeEmployeeIDLabel1;
     private javax.swing.JButton removeItemBackButton;
     private javax.swing.JButton removeItemButton;
     private javax.swing.JLabel removeItemIDLabel;
@@ -2169,11 +2600,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel removeItemLabel;
     private javax.swing.JPanel removeItemPanel;
     private javax.swing.JButton removeItemSearchButton;
+    private javax.swing.JPanel removeSearchEmplPanel;
     private javax.swing.JButton resultsBackButton;
     private javax.swing.JPanel resultsPanel;
     private javax.swing.JTable resultsTable;
     private javax.swing.JPanel rewardsCartPanel;
     private javax.swing.JButton searchBackButton;
+    private javax.swing.JPanel searchEmplPanel;
     private javax.swing.JLabel searchLabel2;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JButton searchSubmitButton;
