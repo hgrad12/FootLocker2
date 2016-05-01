@@ -5,13 +5,16 @@
  */
 package footlocker2;
 
+import java.util.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -176,5 +179,70 @@ public class SQLMethods {
         gl.executeUpdate();
         cm.executeUpdate();
         em.executeUpdate();
+    }
+    
+    public void addEmpl(String fname, String mi, String lname, String gender, String address, String phone, double base, String position,
+            String empid, double shoes, double apperal, double access) throws SQLException{
+        
+        Statement stmt = conn.createStatement();
+        ResultSet res = stmt.executeQuery("SELECT password FROM employee");
+        String pass;
+        int max = 0;
+        int min;
+        while(res.next()){
+            String pw = res.getString("password");
+            pass = pw.substring(pw.length() - 1);
+            
+            min = Integer.parseInt(pass);
+            if(min > max){
+                max = min;
+            }
+        }
+        
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+        //java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        //SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        //String formatted = df.format(new Date());
+        String DATE_FORMAT_NOW = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        String stringDate = sdf.format(date );
+        
+        PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO employee "
+                + "(emp_id, first_name, Minit, last_name, gender, address, phone_num, base_pay, "
+                + "position, start_date, password, isManager) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                stmt1.setString(1, empid);
+                stmt1.setString(2, fname);
+                stmt1.setString(3, mi);
+                stmt1.setString(4, lname);
+                stmt1.setString(5, gender);
+                stmt1.setString(6, address);
+                stmt1.setString(7, phone);
+                stmt1.setDouble(8, base);
+                stmt1.setString(9, position);
+                stmt1.setString(10, stringDate);
+                stmt1.setString(11, ("password" + max));
+                stmt1.setInt(12, 0);
+                
+                stmt1.executeUpdate();
+                
+        PreparedStatement stmt2 = conn.prepareStatement("insert into commission "
+                + "(emp_id, shoes, apperal, accessories, total_commission) values(?,?,?,?,?)");
+                stmt2.setString(1, empid);
+                stmt2.setDouble(2, shoes);
+                stmt2.setDouble(3, apperal);
+                stmt2.setDouble(4, access);
+                stmt2.setDouble(5, 0.0);
+                
+                stmt2.executeUpdate();
+        
+        PreparedStatement stmt3 = conn.prepareStatement("insert into goals"
+                + "(emp_id, total_sales, curr_year, last_year) values(?,?,?,?)");
+                stmt3.setString(1, empid);
+                stmt3.setDouble(2, 0.0);
+                stmt3.setDouble(3, 0.0);
+                stmt3.setDouble(4, 0.0);
+                
+                stmt3.executeUpdate();
+        
     }
 }
