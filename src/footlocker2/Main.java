@@ -1828,7 +1828,7 @@ public class Main extends javax.swing.JFrame{
             rewardsCartPanel.setVisible(true);
             try {
                 query = connection.prepareStatement("INSERT INTO Customer (Customer_ID, fname, lname, email) VALUES (?, ?, ?, ?)");
-                query.setInt(1, 1);
+                query.setInt(1, 3);
                 query.setString(2, fname);
                 query.setString(3, lname);
                 query.setString(4, email);
@@ -1895,6 +1895,47 @@ public class Main extends javax.swing.JFrame{
 
     private void brandDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandDropdownActionPerformed
         // TODO add your handling code here:
+        
+        PreparedStatement query;
+        
+        try {
+                query = connection.prepareStatement("SELECT brand FROM Inventory");
+                //brandDropdown.add(query);
+                
+                ResultSet result = query.executeQuery();
+                query.executeQuery();
+                 //  PreparedStatement
+                while(result.next()){
+                    String s= result.getString("");
+                    System.out.println(s);
+                     brandDropdown.addItem(s);
+                    //System.out.println(result.getString(1));
+                }
+                
+                        
+                        //("INSERT INTO `Customer`(`fname`, `lname`, `email`) VALUES ('"+ fname+"','"+lname + "','" + email+"')");
+            
+                /*
+            Object newInstance;
+            newInstance = Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+            connection = DriverManager.getConnection("jdbc:mysql://triton.towson.edu:3360/gkoutr2db", userName, password);// Please use your database name here
+            PreparedStatement updateStaff;
+            Statement queryStatement = connection.createStatement();
+            queryStatement.executeQuery(query);
+        
+            JOptionPane.showMessageDialog(this, "Saved");
+             */
+             //Connection c = FootLocker2.getConnection();
+            //Statement stmt = c.createStatement();
+            
+      
+            //stmt.executeUpdate(query);
+            }
+          catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
     }//GEN-LAST:event_brandDropdownActionPerformed
 
     private void cartButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButton1ActionPerformed
