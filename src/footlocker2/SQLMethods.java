@@ -245,4 +245,26 @@ public class SQLMethods {
                 stmt3.executeUpdate();
         
     }
+    
+    public void updateEmpl(String id, String fname, String mi, String lname, String gender, String address, String phone, double pay, String position, double access, double shoes, double apperal)throws SQLException{
+        PreparedStatement gl, cm, em;
+        em = conn.prepareStatement("UPDATE employee SET first_name=?,Minit=?,last_name=?,gender=?,address=?,phone_num=?,base_pay=?,position=? WHERE emp_id=?;");
+        em.setString(1, fname);
+        em.setString(2, mi);
+        em.setString(3, lname);
+        em.setString(4, gender);
+        em.setString(5, address);
+        em.setString(6, phone);
+        em.setDouble(7, pay);
+        em.setString(8, position);
+        em.setString(9, id);
+        cm = conn.prepareStatement("UPDATE commission SET shoes=?, apperal=?,accessories=? where emp_id = ?");
+        cm.setDouble(1, shoes);
+        cm.setDouble(2, apperal);
+        cm.setDouble(3, access);
+        cm.setString(4, id);
+        
+        em.executeUpdate();
+        cm.executeUpdate();
+    }
 }

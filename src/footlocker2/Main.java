@@ -203,6 +203,10 @@ public class Main extends javax.swing.JFrame {
         UEShoesText = new javax.swing.JTextField();
         UESubmitButton = new javax.swing.JButton();
         UEGenderDropdown = new javax.swing.JComboBox();
+        jLabel17 = new javax.swing.JLabel();
+        updateLastNameText = new javax.swing.JTextField();
+        updateMIText = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         addEmplPanelLabel = new javax.swing.JPanel();
         UEAssessLabel1 = new javax.swing.JLabel();
         UEPositionLabel1 = new javax.swing.JLabel();
@@ -261,6 +265,12 @@ public class Main extends javax.swing.JFrame {
         UEPhoneText2 = new javax.swing.JTextField();
         UELabel2 = new javax.swing.JLabel();
         removeEmplGenderText = new javax.swing.JTextField();
+        updateEmplSearchPanel = new javax.swing.JPanel();
+        removeEmplBackButton2 = new javax.swing.JButton();
+        removeEmplLabel2 = new javax.swing.JLabel();
+        removeEmployeeIDLabel2 = new javax.swing.JLabel();
+        removeEmplIDText2 = new javax.swing.JTextField();
+        updateEmplSearchButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -1352,7 +1362,7 @@ public class Main extends javax.swing.JFrame {
         UELabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UELabel.setText("Update Employee");
 
-        UENameLabel.setText("Name:");
+        UENameLabel.setText("First Name:");
 
         UEPhoneLabel.setText("Phone #: ");
 
@@ -1385,41 +1395,47 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        UEGenderDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+
+        jLabel17.setText("Last Name:");
+
+        updateLastNameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateLastNameTextActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("M.I.");
+
         javax.swing.GroupLayout updateEmplPanelLayout = new javax.swing.GroupLayout(updateEmplPanel);
         updateEmplPanel.setLayout(updateEmplPanelLayout);
         updateEmplPanelLayout.setHorizontalGroup(
             updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(updateEmplPanelLayout.createSequentialGroup()
-                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEmplPanelLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(updateEmplPanelLayout.createSequentialGroup()
-                                .addComponent(UEGenderLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(UEGenderDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(updateEmplPanelLayout.createSequentialGroup()
-                                .addComponent(UEPhoneLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(UEPhoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
+                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateEmplPanelLayout.createSequentialGroup()
+                        .addComponent(UEGenderLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(UEGenderDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmplPanelLayout.createSequentialGroup()
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmplPanelLayout.createSequentialGroup()
+                                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UENameLabel)
+                                    .addComponent(UEPhoneLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(updateEmplPanelLayout.createSequentialGroup()
                                 .addComponent(UEAddressLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(UEAddressText))
-                            .addGroup(updateEmplPanelLayout.createSequentialGroup()
-                                .addComponent(UENameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(UENameText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(22, 22, 22)))
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UEAddressText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UENameText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UEPhoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateEmplPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(updateEmplPanelLayout.createSequentialGroup()
-                                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(UEPositionLabel)
-                                    .addComponent(UEPayLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(UEPositionText)
-                                    .addComponent(UEPayText, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))
                             .addGroup(updateEmplPanelLayout.createSequentialGroup()
                                 .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(UEAssessLabel)
@@ -1436,13 +1452,34 @@ public class Main extends javax.swing.JFrame {
                                     .addGroup(updateEmplPanelLayout.createSequentialGroup()
                                         .addComponent(UEApparelLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(UEApparelText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, updateEmplPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(UEBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(UELabel, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 195, Short.MAX_VALUE))
+                                        .addComponent(UEApparelText, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmplPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(updateLastNameText)
+                            .addGroup(updateEmplPanelLayout.createSequentialGroup()
+                                .addComponent(updateMIText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UEPositionLabel)
+                            .addComponent(UEPayLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(UEPositionText)
+                            .addComponent(UEPayText, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+            .addGroup(updateEmplPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(UEBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(UELabel, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 301, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmplPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(UESubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1457,18 +1494,30 @@ public class Main extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(UEBackButton)))
                 .addGap(18, 18, 18)
-                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UENameLabel)
-                    .addComponent(UEPositionLabel)
-                    .addComponent(UEPositionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UENameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UEPhoneLabel)
-                    .addComponent(UEPayLabel)
-                    .addComponent(UEPhoneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UEPayText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(updateEmplPanelLayout.createSequentialGroup()
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UENameLabel)
+                            .addComponent(UENameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)
+                            .addComponent(updateLastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(UEPhoneLabel)
+                                .addComponent(UEPhoneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(updateMIText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel18))))
+                    .addGroup(updateEmplPanelLayout.createSequentialGroup()
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UEPositionLabel)
+                            .addComponent(UEPositionText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UEPayLabel)
+                            .addComponent(UEPayText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(26, 26, 26)
                 .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UEAddressLabel)
                     .addComponent(UECommissionLabel)
@@ -1492,7 +1541,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(updateEmplPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UEShoesLabel)
                     .addComponent(UEShoesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(UESubmitButton)
                 .addContainerGap())
         );
@@ -1717,7 +1766,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(UEShoesText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(UESubmitButton1)
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addContainerGap(113, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addEmplPanelLabelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(addEmplPanelLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1941,6 +1990,67 @@ public class Main extends javax.swing.JFrame {
         );
 
         getContentPane().add(removeEmplPanel, "card19");
+
+        removeEmplBackButton2.setText("Back");
+        removeEmplBackButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplBackButton2ActionPerformed(evt);
+            }
+        });
+
+        removeEmplLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        removeEmplLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        removeEmplLabel2.setText("Update Employee");
+
+        removeEmployeeIDLabel2.setText("Employee ID: ");
+
+        removeEmplIDText2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmplIDText2ActionPerformed(evt);
+            }
+        });
+
+        updateEmplSearchButton2.setText("Search");
+        updateEmplSearchButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateEmplSearchButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout updateEmplSearchPanelLayout = new javax.swing.GroupLayout(updateEmplSearchPanel);
+        updateEmplSearchPanel.setLayout(updateEmplSearchPanelLayout);
+        updateEmplSearchPanelLayout.setHorizontalGroup(
+            updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateEmplSearchPanelLayout.createSequentialGroup()
+                .addGroup(updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(updateEmplSearchPanelLayout.createSequentialGroup()
+                        .addComponent(removeEmplBackButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(removeEmplLabel2))
+                    .addGroup(updateEmplSearchPanelLayout.createSequentialGroup()
+                        .addComponent(removeEmployeeIDLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(removeEmplIDText2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateEmplSearchButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 378, Short.MAX_VALUE))
+        );
+        updateEmplSearchPanelLayout.setVerticalGroup(
+            updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(updateEmplSearchPanelLayout.createSequentialGroup()
+                .addGroup(updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeEmplLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeEmplBackButton2))
+                .addGap(27, 27, 27)
+                .addGroup(updateEmplSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(removeEmployeeIDLabel2)
+                    .addComponent(removeEmplIDText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateEmplSearchButton2)
+                .addContainerGap(275, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(updateEmplSearchPanel, "card20");
 
         pack();
         setLocationRelativeTo(null);
@@ -2253,7 +2363,7 @@ public class Main extends javax.swing.JFrame {
     private void manageEmplUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmplUpdateButtonActionPerformed
         // TODO add your handling code here:
         manageEmplPanal.setVisible(false);
-        updateEmplPanel.setVisible(true);
+        updateEmplSearchPanel.setVisible(true);
     }//GEN-LAST:event_manageEmplUpdateButtonActionPerformed
 
     private void manageEmplAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmplAddButtonActionPerformed
@@ -2279,17 +2389,47 @@ public class Main extends javax.swing.JFrame {
         UEAssessText.setText("");
         UEApparelText.setText("");
         UEShoesText.setText("");
+        updateLastNameText.setText("");
+        updateMIText.setText("");
         
         updateEmplPanel.setVisible(false);
-        manageEmplPanal.setVisible(true);
+        updateEmplSearchPanel.setVisible(true);
     }//GEN-LAST:event_UEBackButtonActionPerformed
 
     private void UESubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UESubmitButtonActionPerformed
         // TODO add your handling code here:
+        String empid = removeEmplIDText2.getText();
+        String name = UENameText.getText();
+        String lname = updateLastNameText.getText();
+        String mi = updateMIText.getText().replace(".", "");
+        String phone = UEPhoneText.getText().replace("-", "");
+        String address = UEAddressText.getText();
+        String position = UEPositionText.getText();
+        double pay = parseDouble((!UEPayText.getText().equals("")) ? UEPayText.getText(): "0");
+        double access = parseDouble((!UEAssessText.getText().equals("")? UEAssessText.getText():"0"));
+        double apperal = parseDouble((!UEApparelText.getText().equals("")? UEApparelText.getText() : "0"));
+        double shoes = parseDouble((!UEShoesText.getText().equals("")? UEShoesText.getText(): "0"));
+        String gender = UEGenderDropdown.getSelectedItem().toString();
+        
+       if(name.equals("") || (phone.equals("") || phone.length() > 10) || address.equals("") || position.equals("") 
+                || lname.equals("") || mi.equals("") || mi.length() > 1 || lname.equals("")){
+            showMessageDialog(null, "One of the fields does not contain any values!");
+        }else{
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                dbconn.updateEmpl(empid, name, mi, lname, gender, address, phone, pay, position, access, shoes, apperal);
+                dbconn.closeDBConnection();
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+ 
+        
         showMessageDialog(null, "The employee information has been updated!");
         
         //After submission clear the page and return to the manage employee panel
         UENameText.setText("");
+        updateLastNameText.setText("");
+        updateMIText.setText("");
         UEPhoneText.setText("");
         UEAddressText.setText("");
         UEPositionText.setText("");
@@ -2297,9 +2437,11 @@ public class Main extends javax.swing.JFrame {
         UEAssessText.setText("");
         UEApparelText.setText("");
         UEShoesText.setText("");
+        removeEmplIDText2.setText("");
         
         updateEmplPanel.setVisible(false);
-        manageEmplPanal.setVisible(true);
+        updateEmplSearchPanel.setVisible(true);
+       }
     }//GEN-LAST:event_UESubmitButtonActionPerformed
 
     private void AEBackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AEBackButton1ActionPerformed
@@ -2501,6 +2643,56 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addEmplLastNameTextActionPerformed
 
+    private void removeEmplBackButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplBackButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeEmplBackButton2ActionPerformed
+
+    private void removeEmplIDText2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplIDText2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeEmplIDText2ActionPerformed
+
+    private void updateEmplSearchButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmplSearchButton2ActionPerformed
+        // TODO add your handling code here:
+        String empl = removeEmplIDText2.getText();
+         Employee emp;
+        
+        if(!empl.equals("")){
+            try{
+                SQLMethods dbconn = new SQLMethods();
+                if(dbconn.verifyEmpl(empl)){
+                    emp = new Employee(dbconn.getEmpl(empl));
+                    UENameText.setText(emp.getfname());
+                    updateMIText.setText(emp.getMinit());
+                    updateLastNameText.setText(emp.getlname());
+                    //String phone = emp.getPhone().substring(0, 3)+ "-"+emp.getPhone().substring(3, 6)+"-"+emp.getPhone().substring(6, emp.getPhone().length());
+                    UEPhoneText.setText(emp.getPhone());
+                    UEAddressText.setText(emp.getAddress());
+                    UEPositionText.setText(emp.getPosition());
+                    UEPayText.setText(String.valueOf(emp.getBase()));
+                    UEGenderDropdown.setSelectedItem(emp.getGender());
+                    UEAssessText.setText(String.valueOf(emp.getAccess()));
+                    UEApparelText.setText(String.valueOf(emp.getApperal()));
+                    UEShoesText.setText(String.valueOf(emp.getShoes()));
+                    
+                    updateEmplSearchPanel.setVisible(false);
+                    updateEmplPanel.setVisible(true);
+                }else{
+                    showMessageDialog(null, "The employee ented is not listed in the system!");
+                    removeEmplIDText.setText("");
+                }
+                dbconn.closeDBConnection();
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+
+            
+        }
+    }//GEN-LAST:event_updateEmplSearchButton2ActionPerformed
+
+    private void updateLastNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateLastNameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateLastNameTextActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2672,6 +2864,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -2711,16 +2905,20 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField passwordText;
     private javax.swing.JButton removeEmplBackButton;
     private javax.swing.JButton removeEmplBackButton1;
+    private javax.swing.JButton removeEmplBackButton2;
     private javax.swing.JTextField removeEmplGenderText;
     private javax.swing.JTextField removeEmplIDText;
     private javax.swing.JTextField removeEmplIDText1;
+    private javax.swing.JTextField removeEmplIDText2;
     private javax.swing.JLabel removeEmplLabel;
     private javax.swing.JLabel removeEmplLabel1;
+    private javax.swing.JLabel removeEmplLabel2;
     private javax.swing.JPanel removeEmplPanel;
     private javax.swing.JButton removeEmplSearchButton;
     private javax.swing.JButton removeEmplSearchButton1;
     private javax.swing.JLabel removeEmployeeIDLabel;
     private javax.swing.JLabel removeEmployeeIDLabel1;
+    private javax.swing.JLabel removeEmployeeIDLabel2;
     private javax.swing.JButton removeItemBackButton;
     private javax.swing.JButton removeItemButton;
     private javax.swing.JLabel removeItemIDLabel;
@@ -2740,5 +2938,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton searchSubmitButton;
     private javax.swing.JTextField searchText2;
     private javax.swing.JPanel updateEmplPanel;
+    private javax.swing.JButton updateEmplSearchButton2;
+    private javax.swing.JPanel updateEmplSearchPanel;
+    private javax.swing.JTextField updateLastNameText;
+    private javax.swing.JTextField updateMIText;
     // End of variables declaration//GEN-END:variables
 }
