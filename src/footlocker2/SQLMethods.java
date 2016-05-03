@@ -334,5 +334,39 @@ public class SQLMethods {
             it.executeUpdate();
             cm.executeUpdate();
         }
+        
+        public boolean verifyCust(String fname, String lname, String email)throws SQLException{
+            PreparedStatement it;
+        
+        it = conn.prepareStatement("select * from customer where fname = ? and lname = ? or email = ?");
+        
+        it.setString(1, fname);
+        it.setString(2, lname);
+        it.setString(3, email);
+        ResultSet res = it.executeQuery();
+        
+        if(!res.isBeforeFirst()){
+            return true;
+        }else{
+            return false;
+        }
+        }
+        
+        public void addCust(String fname, String lname, String id, String address, String email)throws SQLException{
+            PreparedStatement it;
+        
+        it = conn.prepareStatement("insert into customer(cust_id, fname, lname, email, address, sum_orders, reward_amt) "
+                + "values(?,?,?,?,?,?,?)");
+        
+        it.setString(1, id);
+        it.setString(2, fname);
+        it.setString(3, lname);
+        it.setString(4, email);
+        it.setString(5, address);
+        it.setDouble(6, 0);
+        it.setDouble(7, 0);
+        
+        it.executeUpdate();
+        }
     }
 

@@ -57,11 +57,13 @@ public class Main extends javax.swing.JFrame {
         emplInvButton = new javax.swing.JButton();
         manRUOButton = new javax.swing.JButton();
         empSignOutButton = new javax.swing.JButton();
+        empMainCRButton = new javax.swing.JButton();
         managerMainPanel = new javax.swing.JPanel();
         manMainInventoryButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         manageEmplButton = new javax.swing.JButton();
         manSignOutButton = new javax.swing.JButton();
+        managerMainCRButton = new javax.swing.JButton();
         inventoryPanel = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -278,6 +280,20 @@ public class Main extends javax.swing.JFrame {
         removeEmployeeIDLabel2 = new javax.swing.JLabel();
         removeEmplIDText2 = new javax.swing.JTextField();
         updateEmplSearchButton2 = new javax.swing.JButton();
+        CRSignUp = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        CRBackButton = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        CRFnameText = new javax.swing.JTextField();
+        CRLnameText = new javax.swing.JTextField();
+        CRIDText = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        CRAdressText = new javax.swing.JTextField();
+        CREmailText = new javax.swing.JTextField();
+        CRSubmitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -385,6 +401,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        empMainCRButton.setText("Customer Rewards");
+        empMainCRButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empMainCRButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout emplMainPanelLayout = new javax.swing.GroupLayout(emplMainPanel);
         emplMainPanel.setLayout(emplMainPanelLayout);
         emplMainPanelLayout.setHorizontalGroup(
@@ -396,7 +419,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(132, 132, 132)
                 .addGroup(emplMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(emplInvButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manRUOButton, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                    .addComponent(manRUOButton, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                    .addComponent(empMainCRButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(418, Short.MAX_VALUE))
         );
         emplMainPanelLayout.setVerticalGroup(
@@ -407,7 +431,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(emplInvButton)
                 .addGap(40, 40, 40)
                 .addComponent(manRUOButton)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(empMainCRButton)
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         getContentPane().add(emplMainPanel, "card3");
@@ -440,6 +466,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        managerMainCRButton.setText("Customer Rewards");
+        managerMainCRButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerMainCRButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout managerMainPanelLayout = new javax.swing.GroupLayout(managerMainPanel);
         managerMainPanel.setLayout(managerMainPanelLayout);
         managerMainPanelLayout.setHorizontalGroup(
@@ -451,10 +484,11 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(manSignOutButton))
                     .addGroup(managerMainPanelLayout.createSequentialGroup()
                         .addGap(160, 160, 160)
-                        .addGroup(managerMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manMainInventoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(manageEmplButton))))
+                        .addGroup(managerMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(manMainInventoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(manageEmplButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(managerMainCRButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(396, Short.MAX_VALUE))
         );
         managerMainPanelLayout.setVerticalGroup(
@@ -467,7 +501,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(29, 29, 29)
                 .addComponent(manageEmplButton)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(managerMainCRButton)
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         getContentPane().add(managerMainPanel, "card4");
@@ -2098,6 +2134,117 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(updateEmplSearchPanel, "card20");
 
+        jLabel24.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("Customer Rewards Sign Up");
+
+        CRBackButton.setText("Back");
+        CRBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CRBackButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("First Name: ");
+
+        jLabel26.setText("Last Name: ");
+
+        jLabel27.setText("Custumer ID: ");
+
+        CRFnameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CRFnameTextActionPerformed(evt);
+            }
+        });
+
+        CRLnameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CRLnameTextActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setText("Address: ");
+
+        jLabel29.setText("Email:");
+
+        CRSubmitButton.setText("Submit");
+        CRSubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CRSubmitButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CRSignUpLayout = new javax.swing.GroupLayout(CRSignUp);
+        CRSignUp.setLayout(CRSignUpLayout);
+        CRSignUpLayout.setHorizontalGroup(
+            CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CRSignUpLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(CRSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(CRSignUpLayout.createSequentialGroup()
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CRSignUpLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(CRBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CRSignUpLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(CRSignUpLayout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CRFnameText))
+                            .addGroup(CRSignUpLayout.createSequentialGroup()
+                                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CRLnameText)
+                                    .addComponent(CRIDText)
+                                    .addComponent(CRAdressText)
+                                    .addComponent(CREmailText, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+        CRSignUpLayout.setVerticalGroup(
+            CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CRSignUpLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CRBackButton)
+                    .addGroup(CRSignUpLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(CRFnameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(CRLnameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(CRIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28)
+                    .addComponent(CRAdressText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(CRSignUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(CREmailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(CRSubmitButton)
+                .addContainerGap())
+        );
+
+        getContentPane().add(CRSignUp, "card21");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -2823,6 +2970,78 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_removeItemRemoveButtonActionPerformed
 
+    private void CRLnameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CRLnameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CRLnameTextActionPerformed
+
+    private void CRFnameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CRFnameTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CRFnameTextActionPerformed
+
+    private void CRSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CRSubmitButtonActionPerformed
+        // TODO add your handling code here:
+        String fname = CRFnameText.getText();
+        String lname = CRLnameText.getText();
+        String id = CRIDText.getText();
+        String address = CRAdressText.getText();
+        String email = CREmailText.getText();
+        
+        if(fname.equals("") || lname.equals("") || id.equals("") || address.equals("") || email.equals("")){
+            showMessageDialog(null, "A field above is empty!");
+        }else{
+            SQLMethods dbconn = new SQLMethods();
+            
+            try{
+                if(dbconn.verifyCust(fname, lname, email)){
+                    dbconn.addCust(fname, lname, id, address, email);
+                    showMessageDialog(null, "The customer has been added to Rewards!");
+                    CRSignUp.setVisible(false);
+                    if(manager){
+                        managerMainPanel.setVisible(true);
+                        
+                    }else{
+                        emplMainPanel.setVisible(true);
+                    }
+                }else{
+                    showMessageDialog(null, "The customer already exists!");
+                }
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+            dbconn.closeDBConnection();
+        }
+        
+        CRFnameText.setText("");
+        CRLnameText.setText("");
+        CRIDText.setText("");
+        CRAdressText.setText("");
+        CREmailText.setText("");
+    }//GEN-LAST:event_CRSubmitButtonActionPerformed
+
+    private void empMainCRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empMainCRButtonActionPerformed
+        // TODO add your handling code here:
+        empMainCRButton.setVisible(false);
+        CRSignUp.setVisible(true);
+        
+    }//GEN-LAST:event_empMainCRButtonActionPerformed
+
+    private void managerMainCRButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerMainCRButtonActionPerformed
+        // TODO add your handling code here:
+        managerMainPanel.setVisible(false);
+        CRSignUp.setVisible(true);
+    }//GEN-LAST:event_managerMainCRButtonActionPerformed
+
+    private void CRBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CRBackButtonActionPerformed
+        // TODO add your handling code here:
+        CRSignUp.setVisible(false);
+        
+        if(manager){
+            managerMainPanel.setVisible(true);
+        }else{
+            emplMainPanel.setVisible(true);
+        }
+    }//GEN-LAST:event_CRBackButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2862,6 +3081,14 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AEBackButton1;
+    private javax.swing.JTextField CRAdressText;
+    private javax.swing.JButton CRBackButton;
+    private javax.swing.JTextField CREmailText;
+    private javax.swing.JTextField CRFnameText;
+    private javax.swing.JTextField CRIDText;
+    private javax.swing.JTextField CRLnameText;
+    private javax.swing.JPanel CRSignUp;
+    private javax.swing.JButton CRSubmitButton;
     private javax.swing.JLabel EmpIdLabel;
     private javax.swing.JButton MIAddItemsButton;
     private javax.swing.JButton MIBackButton;
@@ -2977,6 +3204,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton catgSearchButton;
     private javax.swing.JButton continueWithoutButton;
     private javax.swing.JTextField empIdText;
+    private javax.swing.JButton empMainCRButton;
     private javax.swing.JButton empSignOutButton;
     private javax.swing.JButton emplInvButton;
     private javax.swing.JPanel emplMainPanel;
@@ -3004,6 +3232,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3035,6 +3269,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton manageEmplRemoveButton;
     private javax.swing.JButton manageEmplUpdateButton;
     private javax.swing.JPanel manageInventoryPanel;
+    private javax.swing.JButton managerMainCRButton;
     private javax.swing.JPanel managerMainPanel;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField passwordText;
