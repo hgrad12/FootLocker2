@@ -26,7 +26,7 @@ public class SQLMethods {
         
         try{
             DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+            conn = DriverManager.getConnection("jdbc:mysql://triton.towson.edu:3360/gkoutr2db", "gkoutr2", "Cosc*cd5w");
             
             if(conn != null){
                 System.out.println("Connected to the database successfully!");
@@ -46,10 +46,10 @@ public class SQLMethods {
     
     public boolean verifyEmpl(String user) throws SQLException{
         Statement stmt = conn.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT emp_id FROM employee");
+        ResultSet res = stmt.executeQuery("SELECT emp_id FROM Employee");
         
         while(res.next()){
-            
+    
             String empl = res.getString("emp_id");
             
             if(user.equals(empl)){
@@ -61,7 +61,7 @@ public class SQLMethods {
     
     public boolean verifyPass(String user, String pass) throws SQLException{
         Statement stmt = conn.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT password FROM employee WHERE emp_id = " + user);
+        ResultSet res = stmt.executeQuery("SELECT password FROM Employee WHERE emp_id = " + user);
         
         while(res.next()){
             String pw = res.getString("password");
@@ -74,7 +74,7 @@ public class SQLMethods {
     
     public boolean verifyManager(String user, String pass) throws SQLException{
         Statement stmt = conn.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT isManager FROM employee WHERE emp_id = " + user);
+        ResultSet res = stmt.executeQuery("SELECT isManager FROM Employee WHERE emp_id = " + user);
         
         while(res.next()){
             int man = res.getInt("isManager");
@@ -137,7 +137,7 @@ public class SQLMethods {
     public Employee getEmpl(String id)throws SQLException{
         Employee empl;
         PreparedStatement stmt = conn.prepareStatement("select * "
-                + "from employee e, commission c where c.emp_id = ? "
+                + "from Employee e, commission c where c.emp_id = ? "
                 + "and e.emp_id in (select emp_id from commission where emp_id = ?)");
         stmt.setString(1, id);
         stmt.setString(2, id);
@@ -176,5 +176,116 @@ public class SQLMethods {
         gl.executeUpdate();
         cm.executeUpdate();
         em.executeUpdate();
+        
+        
+    }
+    
+    class Purchase
+    {
+        String m_customerName;
+        private String m_itemName;
+        private String m_category;
+        private int m_itemSize;
+        private float m_price;
+        private int m_quantity; 
+        private float m_total;
+        
+        private ArrayList<Purchase> Cart = new ArrayList<Purchase>();
+        
+        Purchase (String itemName, String category, int itemSize, float price, int quantity, float total)
+        {
+            m_itemName = itemName;
+            m_category = category;
+            m_itemSize = itemSize;
+            m_price = price;
+            m_quantity = quantity;
+            m_total = total;
+        }
+        
+        public void SetCustomerName(String CustomerName)throws SQLException
+        {
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT customerName FROM Customer");
+            String fName = res.getString(1);
+            String lName = res.getString(2);
+            m_customerName = fName + " " +lName;
+        }
+        
+        public String GetCustomerName()
+        {
+            return m_customerName;
+        }
+        
+        public String GetItemName()
+        {
+            return m_itemName;
+        }
+        
+        public int GetItemSize()
+        {
+            return m_itemSize;
+        }
+        
+        public String GetCategory()
+        {
+            return m_category;
+        }
+        
+        public float GetPrice()
+        {
+            return m_price;
+        }
+        
+        public int GetQuantity()
+        {
+            return m_quantity;
+        }
+        
+        public float CreateTotal(ArrayList<Purchase> myList)
+        {
+            for (int i = 0; i < myList.size(); i++)
+            {
+                m_total += myList.get(i).GetPrice();
+            }
+            return m_total;
+        }
+        
+        public void SetItemName(String itemName)
+        {
+             m_itemName = itemName;
+        }
+        
+        public void SetItemSize(int itemSize)
+        {
+            m_itemSize = itemSize;
+        }
+        
+        public void SetCategory(String Category)
+        {
+            m_category = Category;
+        }
+        
+        public void SetPrice(float price)
+        {
+            int quantity = GetQuantity();
+            m_price = price * quantity;
+            
+        }
+        
+        public void SetQuantity(int quantity)
+        {
+            m_quantity = quantity;
+        }
+        
+        public void CreateCart(Purchase sale)
+        {
+            Cart.add(sale);
+        }
+        
+        public ArrayList<Purchase> GetCart()
+        {
+            return Cart;
+        }
     }
 }
+
