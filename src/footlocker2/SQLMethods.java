@@ -267,4 +267,72 @@ public class SQLMethods {
         em.executeUpdate();
         cm.executeUpdate();
     }
-}
+    
+    public boolean verifyItem(String id, String gender, String size, int quantity)throws SQLException{
+        PreparedStatement it;
+        
+        it = conn.prepareStatement("select * from inventory i, size s "
+                + "where i.item_id = ? and s.item_id = ? and size = ? and "
+                + "quantity = ? and gender = ?");
+        
+        it.setString(1, id);
+        it.setString(2, id);
+        it.setString(3, size);
+        it.setInt(4, quantity);
+        it.setString(5, gender);
+        ResultSet res = it.executeQuery();
+        
+        if(!res.isBeforeFirst()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean verifyItem(String id)throws SQLException{
+        PreparedStatement it;
+        
+        it = conn.prepareStatement("select * from inventory i "
+                + "where item_id = ?");
+        
+        it.setString(1, id);
+        ResultSet res = it.executeQuery();
+        
+        if(!res.isBeforeFirst()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+        public void addItem(String id, String name, String brand, String catg, String gender, double price, String size, int quantity)throws SQLException{
+         PreparedStatement it, cm;
+         it = conn.prepareStatement("insert into inventory (item_id, item_name, brand, category, gender, price) values(?,?,?,?,?,?)");
+         it.setString(1, id);
+         it.setString(2, name);
+         it.setString(3, brand);
+         it.setString(4, catg);
+         it.setString(5, gender);
+         it.setDouble(6, price);
+         
+         cm = conn.prepareStatement("insert into size (item_id, size, quantity) values(?,?,?)");
+         cm.setString(1, id);
+         cm.setString(2, size);
+         cm.setInt(3, quantity);
+         
+         it.executeUpdate();
+         cm.executeUpdate();
+        }
+        
+        public void removeItem(String id)throws SQLException{
+            PreparedStatement it, cm;
+            it = conn.prepareStatement("DELETE FROM inventory WHERE item_id=?");
+            it.setString(1, id);
+            
+            cm = conn.prepareStatement("DELETE FROM size WHERE item_id=?");
+            cm.setString(1, id);
+            
+            it.executeUpdate();
+            cm.executeUpdate();
+        }
+    }
+

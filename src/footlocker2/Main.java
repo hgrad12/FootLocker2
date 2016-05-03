@@ -8,6 +8,7 @@ package footlocker2;
 import footlocker2.SQLMethods;
 import java.awt.Window;
 import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 import java.sql.SQLException;
 import net.proteanit.sql.DbUtils;
 import java.util.ArrayList;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.showConfirmDialog;
 
 /**
  *
@@ -157,18 +160,22 @@ public class Main extends javax.swing.JFrame {
         addItemCatgText = new javax.swing.JTextField();
         addItemBrandText = new javax.swing.JTextField();
         addItemSizeLabel = new javax.swing.JLabel();
-        addItemSizeDropdown = new javax.swing.JComboBox();
-        addSizeButton = new javax.swing.JButton();
         addItemQtyLabel = new javax.swing.JLabel();
         addItemQtyText = new javax.swing.JTextField();
         addItemSubmitButton = new javax.swing.JButton();
+        addItemSizeText = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        itemIDText = new javax.swing.JTextField();
+        additemGenderDropdown = new javax.swing.JComboBox();
+        jLabel23 = new javax.swing.JLabel();
+        addItemPriceText = new javax.swing.JTextField();
         removeItemPanel = new javax.swing.JPanel();
         removeItemBackButton = new javax.swing.JButton();
         removeItemLabel = new javax.swing.JLabel();
         removeItemIDLabel = new javax.swing.JLabel();
         removeItemIDText = new javax.swing.JTextField();
-        removeItemSearchButton = new javax.swing.JButton();
-        removeItemButton = new javax.swing.JButton();
+        removeItemRemoveButton = new javax.swing.JButton();
         removeSearchEmplPanel = new javax.swing.JPanel();
         removeEmplBackButton = new javax.swing.JButton();
         removeEmplLabel = new javax.swing.JLabel();
@@ -1088,11 +1095,34 @@ public class Main extends javax.swing.JFrame {
 
         addItemSizeLabel.setText("Size: ");
 
-        addSizeButton.setText("Add Size");
-
         addItemQtyLabel.setText("Qty: ");
 
         addItemSubmitButton.setText("Submit");
+        addItemSubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemSubmitButtonActionPerformed(evt);
+            }
+        });
+
+        addItemSizeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemSizeTextActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Item ID:");
+
+        jLabel22.setText("Gender: ");
+
+        additemGenderDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+
+        jLabel23.setText("Price:");
+
+        addItemPriceText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemPriceTextActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout addItemPanelLayout = new javax.swing.GroupLayout(addItemPanel);
         addItemPanel.setLayout(addItemPanelLayout);
@@ -1116,11 +1146,27 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(addItemNameText)
                             .addComponent(addItemCatgText)
                             .addComponent(addItemBrandText, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(addSizeButton)
-                                .addComponent(addItemSizeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
-                        .addComponent(addItemQtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(addItemSizeText))
+                        .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addItemPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addItemQtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(addItemPanelLayout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(addItemPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel22)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(additemGenderDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(addItemPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(itemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addItemPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel23)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(addItemPriceText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 98, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addItemQtyText, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87))
@@ -1141,24 +1187,28 @@ public class Main extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addItemNameLabel)
-                            .addComponent(addItemNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addItemNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
+                            .addComponent(itemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addItemCatgLabel)
-                            .addComponent(addItemCatgText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addItemCatgText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22)
+                            .addComponent(additemGenderDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addItemBrandLabel)
-                            .addComponent(addItemBrandText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
+                            .addComponent(addItemBrandText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23)
+                            .addComponent(addItemPriceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)
                         .addGroup(addItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addItemSizeLabel)
-                            .addComponent(addItemSizeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addItemQtyLabel)
-                            .addComponent(addItemQtyText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addSizeButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                            .addComponent(addItemQtyText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addItemSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(addItemSubmitButton)
                 .addContainerGap())
         );
@@ -1184,9 +1234,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        removeItemSearchButton.setText("Search");
-
-        removeItemButton.setText("Remove");
+        removeItemRemoveButton.setText("Remove");
+        removeItemRemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeItemRemoveButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout removeItemPanelLayout = new javax.swing.GroupLayout(removeItemPanel);
         removeItemPanel.setLayout(removeItemPanelLayout);
@@ -1202,16 +1255,12 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(removeItemIDLabel)
                 .addGroup(removeItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(removeItemPanelLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(removeItemSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(removeItemPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeItemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(removeItemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(removeItemPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(removeItemRemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(364, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeItemPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removeItemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         removeItemPanelLayout.setVerticalGroup(
             removeItemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1224,10 +1273,8 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(removeItemIDLabel)
                     .addComponent(removeItemIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(removeItemSearchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                .addComponent(removeItemButton)
-                .addContainerGap())
+                .addComponent(removeItemRemoveButton)
+                .addContainerGap(281, Short.MAX_VALUE))
         );
 
         getContentPane().add(removeItemPanel, "card13");
@@ -1682,7 +1729,6 @@ public class Main extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(addEmplLastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addEmplPanelLabelLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(addMIText, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -2645,6 +2691,8 @@ public class Main extends javax.swing.JFrame {
 
     private void removeEmplBackButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplBackButton2ActionPerformed
         // TODO add your handling code here:
+        updateEmplSearchPanel.setVisible(false);
+        manageEmplPanal.setVisible(true);
     }//GEN-LAST:event_removeEmplBackButton2ActionPerformed
 
     private void removeEmplIDText2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmplIDText2ActionPerformed
@@ -2692,6 +2740,88 @@ public class Main extends javax.swing.JFrame {
     private void updateLastNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateLastNameTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateLastNameTextActionPerformed
+
+    private void addItemSizeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemSizeTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemSizeTextActionPerformed
+
+    private void addItemPriceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemPriceTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addItemPriceTextActionPerformed
+
+    private void addItemSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemSubmitButtonActionPerformed
+        // TODO add your handling code here:
+        String name = addItemNameText.getText();
+        String catg = addItemCatgText.getText();
+        String brand = addItemBrandText.getText();
+        String size = addItemSizeText.getText();
+        String id = itemIDText.getText();
+        String gender = additemGenderDropdown.getSelectedItem().toString();
+        double price = parseDouble((!addItemPriceText.getText().equals("")) ? addItemPriceText.getText(): "0");
+        int quantity = parseInt((!addItemQtyText.getText().equals("")) ? addItemQtyText.getText(): "0");
+        
+        if(name.equals("") || catg.equals("") || size.equals("") || id.equals("") 
+                || brand.equals("") || gender.equals("") || price == 0.0 || quantity == 0){
+            showMessageDialog(null, "One of the fields does not contain any values!");
+        }else{
+            SQLMethods dbconn = new SQLMethods();
+            
+            try{
+                if(dbconn.verifyItem(id, gender, size, quantity)){
+                    dbconn.addItem(id, name, brand, catg, gender, price, size, quantity);
+                    showMessageDialog(null, "The item has been added!");
+                }else{
+                    showMessageDialog(null, "The item enter already exists!");
+                }
+                
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+            dbconn.closeDBConnection();
+            
+            addItemNameText.setText("");
+                    
+                    
+                    addItemPanel.setVisible(false);
+                    manageInventoryPanel.setVisible(true);
+        }
+                    addItemCatgText.setText("");
+                    addItemBrandText.setText("");
+                    addItemSizeText.setText("");
+                    itemIDText.setText("");
+                    addItemPriceText.setText("");
+                    addItemQtyText.setText("");
+    }//GEN-LAST:event_addItemSubmitButtonActionPerformed
+
+    private void removeItemRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemRemoveButtonActionPerformed
+        // TODO add your handling code here:
+        String id = removeItemIDText.getText();
+        
+        if(id.equals("")){
+            showMessageDialog(null, "The field is empty!");
+        }else{
+            SQLMethods dbconn = new SQLMethods();
+            try{
+                if(dbconn.verifyItem(id)){
+                    int dialogButton = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, " Do you wish to remove item "+id, "Confirmation", dialogButton);
+                    if(dialogResult == 0) {
+                        System.out.println("Yes option");
+                        dbconn.removeItem(id);
+                        showMessageDialog(null, "The item has been removed!");
+                        removeItemIDText.setText("");
+                    } else {
+                        System.out.println("No Option");
+                    } 
+                }else{
+                    showMessageDialog(null, "The item entered does not exist!");
+                    removeItemIDText.setText("");
+                }
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+        }
+    }//GEN-LAST:event_removeItemRemoveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2823,13 +2953,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel addItemNameLabel;
     private javax.swing.JTextField addItemNameText;
     private javax.swing.JPanel addItemPanel;
+    private javax.swing.JTextField addItemPriceText;
     private javax.swing.JLabel addItemQtyLabel;
     private javax.swing.JTextField addItemQtyText;
-    private javax.swing.JComboBox addItemSizeDropdown;
     private javax.swing.JLabel addItemSizeLabel;
+    private javax.swing.JTextField addItemSizeText;
     private javax.swing.JButton addItemSubmitButton;
     private javax.swing.JTextField addMIText;
-    private javax.swing.JButton addSizeButton;
+    private javax.swing.JComboBox additemGenderDropdown;
     private javax.swing.JComboBox brandDropdown;
     private javax.swing.JButton cartBackButton;
     private javax.swing.JButton cartBackButton1;
@@ -2852,6 +2983,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel enterItemIDLabel;
     private javax.swing.JLabel enterItemIDLabel1;
     private javax.swing.JPanel inventoryPanel;
+    private javax.swing.JTextField itemIDText;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -2866,9 +2998,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2920,12 +3055,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel removeEmployeeIDLabel1;
     private javax.swing.JLabel removeEmployeeIDLabel2;
     private javax.swing.JButton removeItemBackButton;
-    private javax.swing.JButton removeItemButton;
     private javax.swing.JLabel removeItemIDLabel;
     private javax.swing.JTextField removeItemIDText;
     private javax.swing.JLabel removeItemLabel;
     private javax.swing.JPanel removeItemPanel;
-    private javax.swing.JButton removeItemSearchButton;
+    private javax.swing.JButton removeItemRemoveButton;
     private javax.swing.JPanel removeSearchEmplPanel;
     private javax.swing.JButton resultsBackButton;
     private javax.swing.JPanel resultsPanel;
