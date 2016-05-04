@@ -22,7 +22,11 @@ import java.util.Calendar;
  */
 public class SQLMethods {
     
-    private Connection conn;
+     public Connection conn;
+     Purchase purchase = new Purchase();
+     Cart crt = new Cart();
+     private static ArrayList<Purchase> cart = new ArrayList<>();
+     private static ArrayList<Cart> remove = new ArrayList<>();
     
     public SQLMethods(){
         
@@ -355,6 +359,7 @@ public class SQLMethods {
         public void addCust(String fname, String lname, String id, String address, String email)throws SQLException{
             PreparedStatement it;
         
+        
         it = conn.prepareStatement("insert into customer(cust_id, fname, lname, email, address, sum_orders, reward_amt) "
                 + "values(?,?,?,?,?,?,?)");
         
@@ -368,5 +373,120 @@ public class SQLMethods {
         
         it.executeUpdate();
         }
+        
+        public boolean verifyCart(String id, String size, int quantity)throws SQLException{
+             PreparedStatement it;
+             it = conn.prepareStatement("select * from inventory i, size s "
+                     + "where i.item_id = ? and s.size = ? and quantity >= ?");
+             it.setString(1, id);
+             it.setString(2, size);
+             it.setInt(3, quantity);
+             
+             ResultSet res = it.executeQuery();
+        
+            if(!res.isBeforeFirst()){
+                return false;
+            }else{
+                return true;
+            }
+              
+        }
+        public ResultSet addToCart(String emp_id, String cust_id, String id, String size, int quantity)throws SQLException{
+            PreparedStatement it, cm, gm;
+            
+            System.out.println("asdfagA");
+             it = conn.prepareStatement("select i.item_name, i.category, i.price from inventory i, size s "
+                     + "where i.item_id = ? and s.size = ?");
+             it.setString(1, id);
+             it.setString(2, size);
+             
+             
+             ResultSet res = it.executeQuery();
+             
+             res.first();
+              String iName = res.getString("item_name");
+              String catg = res.getString("category");
+              double iPrice =  res.getFloat("price");
+              
+              cm = conn.prepareStatement("insert into cart(cust_id, emp_id, item_id, total, quantity, category, item_name, ordered, size) values(?,?,?,?,?,?,?,?,?)");
+              cm.setString(1, cust_id);
+              cm.setString(2, emp_id);
+              cm.setString(3, id);
+              cm.setDouble(4, iPrice);
+              cm.setInt(5, quantity);
+              cm.setString(6, catg);
+              cm.setString(7, iName);
+              cm.setString(8, "N");
+              cm.setString(9, size);
+              crt = new Cart(id, size, quantity);
+              purchase = new Purchase(iName, catg, size, iPrice, quantity);
+              remove.add(crt);
+              cart.add(purchase);
+              cm.executeUpdate();
+              
+              gm = conn.prepareStatement("select item_name, category, size, quantity, total from cart where cust_id = ? and emp_id = ? and ordered = ?");
+              gm.setString(1, cust_id);
+              gm.setString(2, emp_id);
+              gm.setString(3, "N");
+              
+              res = gm.executeQuery();
+              return res;
+        }
+        
+       public String getCustName(String fname, String lname)throws SQLException{
+            PreparedStatement it;
+        
+        it = conn.prepareStatement("select cust_id from customer where fname = ? and lname = ?");
+        
+        it.setString(1, fname);
+        it.setString(2, lname);
+        ResultSet res = it.executeQuery();
+        res.first();
+            String id = res.getString("cust_id");
+        
+        return id;
+        }
+       
+       
+       public boolean verifyCustName(String fname, String lname)throws SQLException{
+            PreparedStatement it;
+        
+        it = conn.prepareStatement("select * from customer where fname = ? and lname = ?");
+        
+        it.setString(1, fname);
+        it.setString(2, lname);
+
+        ResultSet res = it.executeQuery();
+        
+        if(!res.isBeforeFirst()){
+            return false;
+        }else{
+            return true;
+        }
+        
+        
     }
+       
+       public double getRewards(String id)throws SQLException{
+           PreparedStatement it;
+            it = conn.prepareStatement("select reward_amt from customer where cust_id = ?");
+            it.setString(1, id);
+            ResultSet res = it.executeQuery();
+            res.first();
+            double reward = 0;
+            reward = res.getDouble("reward_amt");
+           return reward;
+       }
+       public Purchase getCart(){
+           return purchase;
+       }
+       
+       public ArrayList<Purchase> getPurchaseCart(){
+           return cart;
+       }
+       
+       public ArrayList<Cart> getRemCart(){
+           return remove;
+       }
+}
 

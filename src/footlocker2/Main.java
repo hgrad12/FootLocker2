@@ -9,16 +9,20 @@ import footlocker2.SQLMethods;
 import java.awt.Window;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.proteanit.sql.DbUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showConfirmDialog;
+import javax.swing.table.*;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -27,6 +31,14 @@ import static javax.swing.JOptionPane.showConfirmDialog;
 public class Main extends javax.swing.JFrame {
     
     boolean manager;
+    Purchase purchase = new Purchase();
+    ArrayList<Purchase> cart;
+    Cart crt = new Cart();
+    ArrayList<Cart> remove = new ArrayList<>(); 
+    double total;
+    int index;
+    String custID;
+    String empID;
     /**
      * Creates new form Main
      */
@@ -110,9 +122,6 @@ public class Main extends javax.swing.JFrame {
         RUOFirstNameLabel = new javax.swing.JLabel();
         RUOLastNameLabel = new javax.swing.JLabel();
         RUOLastNameText = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        RUOPhoneLabel = new javax.swing.JLabel();
-        RUOPhoneText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         RUOSubmitButton = new javax.swing.JButton();
         continueWithoutButton = new javax.swing.JButton();
@@ -133,6 +142,10 @@ public class Main extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        CRQuantityText = new javax.swing.JTextField();
         cartPanel = new javax.swing.JPanel();
         enterItemIDLabel1 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
@@ -148,6 +161,10 @@ public class Main extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         cartTable1 = new javax.swing.JTable();
+        jLabel30 = new javax.swing.JLabel();
+        cartSizeText = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
         manageInventoryPanel = new javax.swing.JPanel();
         MIAddItemsButton = new javax.swing.JButton();
         MIRemoveItemButton = new javax.swing.JButton();
@@ -734,11 +751,6 @@ public class Main extends javax.swing.JFrame {
 
         RUOLastNameLabel.setText("Last Name: ");
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("OR");
-
-        RUOPhoneLabel.setText("Phone #: ");
-
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("OR");
 
@@ -766,28 +778,23 @@ public class Main extends javax.swing.JFrame {
             .addGroup(RUOPanelLayout.createSequentialGroup()
                 .addGroup(RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(RUOPanelLayout.createSequentialGroup()
-                        .addGap(186, 186, 186)
+                        .addGap(220, 220, 220)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(RUOPanelLayout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(RUOSubmitButton))
                     .addGroup(RUOPanelLayout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addGroup(RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(RUOFirstNameLabel)
-                            .addComponent(RUOLastNameLabel)
-                            .addComponent(RUOPhoneLabel))
+                            .addComponent(RUOLastNameLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RUOSubmitButton)
+                            .addComponent(continueWithoutButton)
                             .addGroup(RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel4)
-                                .addComponent(RUOFirstNameText)
-                                .addComponent(RUOLastNameText)
-                                .addComponent(RUOPhoneText, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addGroup(RUOPanelLayout.createSequentialGroup()
-                                    .addGap(12, 12, 12)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(RUOPanelLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(continueWithoutButton)))
+                                .addComponent(RUOFirstNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                .addComponent(RUOLastNameText)))))
                 .addContainerGap(372, Short.MAX_VALUE))
         );
         RUOPanelLayout.setVerticalGroup(
@@ -805,18 +812,12 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(RUOLastNameLabel)
                     .addComponent(RUOLastNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(RUOPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RUOPhoneLabel)
-                    .addComponent(RUOPhoneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RUOSubmitButton)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(continueWithoutButton)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         getContentPane().add(RUOPanel, "card8");
@@ -837,14 +838,25 @@ public class Main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item", "Type", "Quantity", "Price"
+                "Item", "Type", "Size", "Quantity", "Price"
             }
         ));
         jScrollPane2.setViewportView(cartTable);
 
         enterItemIDLabel.setText("Enter Item ID: ");
 
+        cartText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cartTextActionPerformed(evt);
+            }
+        });
+
         addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         cartButton.setText("Submit Order");
         cartButton.addActionListener(new java.awt.event.ActionListener() {
@@ -867,23 +879,40 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel32.setText("Size:");
+
+        jLabel33.setText("Quantity: ");
+
         javax.swing.GroupLayout rewardsCartPanelLayout = new javax.swing.GroupLayout(rewardsCartPanel);
         rewardsCartPanel.setLayout(rewardsCartPanelLayout);
         rewardsCartPanelLayout.setHorizontalGroup(
             rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rewardsCartPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(rewardsCartPanelLayout.createSequentialGroup()
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cartButton)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rewardsCartPanelLayout.createSequentialGroup()
+            .addGroup(rewardsCartPanelLayout.createSequentialGroup()
                 .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(enterItemIDLabel)
-                    .addComponent(cartText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(rewardsCartPanelLayout.createSequentialGroup()
+                        .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rewardsCartPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(cartText, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CRQuantityText)
+                            .addComponent(jTextField9)
+                            .addGroup(rewardsCartPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel33)
+                                    .addComponent(cartBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel32))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(rewardsCartPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cartBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(enterItemIDLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cartLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -919,29 +948,37 @@ public class Main extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rewardsCartPanelLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(rewardsCartPanelLayout.createSequentialGroup()
                         .addComponent(enterItemIDLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cartText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addButton))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel32)
+                        .addGap(5, 5, 5)
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CRQuantityText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cartButton)
+                .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cartButton)
+                    .addComponent(addButton))
                 .addContainerGap())
         );
 
@@ -956,6 +993,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         addButton1.setText("Add");
+        addButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButton1ActionPerformed(evt);
+            }
+        });
 
         cartButton1.setText("Submit Order");
         cartButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -991,18 +1033,34 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(cartTable1);
 
+        jLabel30.setText("Size: ");
+
+        cartSizeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cartSizeTextActionPerformed(evt);
+            }
+        });
+
+        jLabel31.setText("Quantity:");
+
         javax.swing.GroupLayout cartPanelLayout = new javax.swing.GroupLayout(cartPanel);
         cartPanel.setLayout(cartPanelLayout);
         cartPanelLayout.setHorizontalGroup(
             cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cartPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cartBackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cartText1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enterItemIDLabel1)
-                    .addComponent(addButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cartSizeText)
+                    .addComponent(cartText1)
+                    .addGroup(cartPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cartBackButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enterItemIDLabel1)
+                            .addComponent(addButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel31)))
+                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cartPanelLayout.createSequentialGroup()
                         .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1036,14 +1094,19 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(cartBackButton1))
                     .addComponent(cartLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(cartPanelLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
                         .addComponent(enterItemIDLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cartText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addButton1))
+                        .addComponent(cartSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1057,9 +1120,15 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(18, 18, 18)
-                .addComponent(cartButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cartPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cartButton1)
+                        .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addButton1)
+                        .addGap(23, 23, 23))))
         );
 
         getContentPane().add(cartPanel, "card10");
@@ -2293,6 +2362,7 @@ public class Main extends javax.swing.JFrame {
                         loginPane.setVisible(false);
                         manager = true;
                     }
+                    empID = empIdText.getText();
                 }else{
                     showMessageDialog(null, "Your Employee ID or password is invalid");
             }
@@ -2344,7 +2414,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         RUOFirstNameText.setText("");
         RUOLastNameText.setText("");
-        RUOPhoneText.setText("");
         RUOPanel.setVisible(false);
         
         if(manager == false){
@@ -2363,7 +2432,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         RUOFirstNameText.setText("");
         RUOLastNameText.setText("");
-        RUOPhoneText.setText("");
         
         RUOPanel.setVisible(true);
         rewardsCartPanel.setVisible(false);
@@ -2382,7 +2450,7 @@ public class Main extends javax.swing.JFrame {
         
         RUOFirstNameText.setText("");
         RUOLastNameText.setText("");
-        RUOPhoneText.setText("");
+        cartSizeText.setText("");
         
         RUOPanel.setVisible(true);
         cartPanel.setVisible(false);
@@ -2440,13 +2508,25 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         String fname = RUOFirstNameText.getText();
         String lname = RUOLastNameText.getText();
-        String phone = RUOPhoneText.getText();
-        if((fname.equals("") || lname.equals("")) || 
-                phone.equals("")){
-            showMessageDialog(null, "You need to supply the right info!");
-        }else{
+
+        if((!fname.equals("") && !lname.equals(""))){
+            SQLMethods dbconn = new SQLMethods();
+            try{
+            if(dbconn.verifyCustName(fname, lname)){
+                custID = dbconn.getCustName(fname, lname);
+            }else{
+               showMessageDialog(null, "The customer rewards member does not exist!");
+            }
+            }catch (SQLException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dbconn.closeDBConnection();
+            
             RUOPanel.setVisible(false);
             rewardsCartPanel.setVisible(true);
+            
+        }else{
+            showMessageDialog(null, "You need to supply the right info!");
         }
     }//GEN-LAST:event_RUOSubmitButtonActionPerformed
 
@@ -3042,6 +3122,79 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CRBackButtonActionPerformed
 
+    private void addButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addButton1ActionPerformed
+
+    private void cartSizeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartSizeTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartSizeTextActionPerformed
+
+    private void cartTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cartTextActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        String id = cartText.getText();
+        String size = jTextField9.getText();
+        int quantity = parseInt((!CRQuantityText.getText().equals("")) ? CRQuantityText.getText(): "0");
+        double sum = 0.0;
+        int quan = 0;
+        double tot = 0.0;
+        double reward = 0.0;
+        
+        if(id.equals("") || size.equals("") || quantity == 0){
+            showMessageDialog(null, "A field(s) is empty!");
+        }else{
+            SQLMethods dbconn = new SQLMethods();
+            
+            try{
+                if(dbconn.verifyCart(id, size, quantity)){
+                    ResultSet res = dbconn.addToCart(empID, custID, id, size, quantity);
+                    cartTable.setModel(DbUtils.resultSetToTableModel(res));
+                    //Object[] rowData = {cart.getName(), cart.getCatg(), cart.getQuantity(), cart.getPrice()};
+                    cart = dbconn.getPurchaseCart();
+                   reward = dbconn.getRewards(custID);
+                    //allCart.add(rowData);
+                    //cartTable = new javax.swing.JTable(model);
+                    //cartTable.setModel(model);
+                    total =  purchase.CreateTotal(cart);
+                    
+                }
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+            dbconn.closeDBConnection();
+        }
+        jTextField2.setText(Double.toString(reward));
+        double tax = purchase.CreateTax(cart);
+        jTextField1.setText(Double.toString(total));
+        jTextField3.setText(Double.toString(tax));
+        jTextField4.setText(Double.toString(total + tax));
+        cartText.setText("");
+        jTextField9.setText("");
+        CRQuantityText.setText("");
+        
+        //rewardsCartPanel.setVisible(false);
+        //rewardsCartPanel.setVisible(true);
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    
+   /* public void displayCart(){
+        String CustomerName = cart.GetItemCustomerName();
+        for (int i = 0; i < cart.size(); i++)
+        {
+            String itemName = cart.get(i).GetItemName();
+            String itemSize = cart.get(i).GetItemSize();
+            int quantity = cart.get(i).GetQuantity();
+            float Price = cart.get(i).GetPrice();
+            
+            Object[] all = {itemName, itemSize, quantity, Price};
+            cartTable.addRow(all);
+        }
+        float total = cart.get(i).GetTotal();
+    }*/
     /**
      * @param args the command line arguments
      */
@@ -3087,6 +3240,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField CRFnameText;
     private javax.swing.JTextField CRIDText;
     private javax.swing.JTextField CRLnameText;
+    private javax.swing.JTextField CRQuantityText;
     private javax.swing.JPanel CRSignUp;
     private javax.swing.JButton CRSubmitButton;
     private javax.swing.JLabel EmpIdLabel;
@@ -3099,8 +3253,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel RUOLastNameLabel;
     private javax.swing.JTextField RUOLastNameText;
     private javax.swing.JPanel RUOPanel;
-    private javax.swing.JLabel RUOPhoneLabel;
-    private javax.swing.JTextField RUOPhoneText;
     private javax.swing.JButton RUOSubmitButton;
     private javax.swing.JLabel UEAddressLabel;
     private javax.swing.JLabel UEAddressLabel1;
@@ -3196,6 +3348,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel cartLabel;
     private javax.swing.JLabel cartLabel1;
     private javax.swing.JPanel cartPanel;
+    private javax.swing.JTextField cartSizeText;
     private javax.swing.JTable cartTable;
     private javax.swing.JTable cartTable1;
     private javax.swing.JTextField cartText;
@@ -3239,10 +3392,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -3255,6 +3411,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel label;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JPanel loginPane;
