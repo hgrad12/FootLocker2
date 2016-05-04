@@ -23,6 +23,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import javax.swing.table.*;
 import javax.swing.table.TableModel;
+import java.math.*;
+
 
 /**
  *
@@ -2765,6 +2767,14 @@ public class Main extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_UESubmitButtonActionPerformed
 
+    public static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+}
+    
     private void AEBackButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AEBackButton1ActionPerformed
         // TODO add your handling code here:
         UENameText1.setText("");
@@ -3197,7 +3207,7 @@ public class Main extends javax.swing.JFrame {
             }
             dbconn.closeDBConnection();
         }
-        double tax = purchase.CreateTax(cart);
+        double tax = round(purchase.CreateTax(cart), 3);
         jTextField7.setText(Double.toString(total));
         jTextField5.setText(Double.toString(tax));
         jTextField6.setText(Double.toString((total) + tax));
@@ -3247,7 +3257,7 @@ public class Main extends javax.swing.JFrame {
             dbconn.closeDBConnection();
         }
         jTextField2.setText(Double.toString(rewards));
-        double tax = purchase.CreateTax(cart);
+        double tax = round(purchase.CreateTax(cart), 3);
         jTextField1.setText(Double.toString(total));
         jTextField3.setText(Double.toString(tax));
         cartTotalText.setText(Double.toString((total - rewards) + tax));
