@@ -39,6 +39,7 @@ public class Main extends javax.swing.JFrame {
     int index;
     String custID;
     String empID;
+    double rewards;
     /**
      * Creates new form Main
      */
@@ -141,7 +142,7 @@ public class Main extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        cartTotalText = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
@@ -873,9 +874,9 @@ public class Main extends javax.swing.JFrame {
 
         jLabel10.setText("Total: ");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        cartTotalText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                cartTotalTextActionPerformed(evt);
             }
         });
 
@@ -935,7 +936,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(130, 130, 130)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cartTotalText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         rewardsCartPanelLayout.setVerticalGroup(
             rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -957,7 +958,7 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cartTotalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(rewardsCartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2437,9 +2438,9 @@ public class Main extends javax.swing.JFrame {
         rewardsCartPanel.setVisible(false);
     }//GEN-LAST:event_cartBackButtonActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void cartTotalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartTotalTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_cartTotalTextActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
@@ -2572,24 +2573,71 @@ public class Main extends javax.swing.JFrame {
 
     private void cartButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButton1ActionPerformed
         // TODO add your handling code here:
-        showMessageDialog(null, "Your Order is complete!");
-        cartPanel.setVisible(false);
-        if(manager == false){
-            emplMainPanel.setVisible(true);
-        }else{
-            managerMainPanel.setVisible(true);
+        
+        String id;
+        String size;
+        int quantity;
+        double total = Double.parseDouble(jTextField6.getText());
+        SQLMethods dbconn = new SQLMethods();
+        if(!jTextField6.equals("")){
+            try{
+            remove = dbconn.getRemCart();
+
+                for(int x = 0; x < remove.size(); x++){
+                    Cart ct = remove.get(x);
+                    id = ct.getID();
+                    size = ct.getSize();
+                    quantity = ct.getQuantity();
+                    dbconn.removeItems(id, size, quantity);
+                }
+                dbconn.removeCart(empID, "none");
+            }catch (SQLException err){
+                    System.out.println( err.getMessage( ) );
+                }
+            if(manager == false){
+                emplMainPanel.setVisible(true);
+            }else{
+                managerMainPanel.setVisible(true);
+            }
+            dbconn.closeDBConnection();
+            showMessageDialog(null, "Your Order is complete!");
+            cartPanel.setVisible(false);
         }
     }//GEN-LAST:event_cartButton1ActionPerformed
 
     private void cartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartButtonActionPerformed
         // TODO add your handling code here:
-        showMessageDialog(null, "Your Order is complete!");
-        rewardsCartPanel.setVisible(false);
+        String id;
+        String size;
+        int quantity;
+        double total = Double.parseDouble(cartTotalText.getText());
+        SQLMethods dbconn = new SQLMethods();
+        try{
+        dbconn.setRewards(custID);
+        remove = dbconn.getRemCart();
+        
+            for(int x = 0; x < remove.size(); x++){
+                Cart ct = remove.get(x);
+                id = ct.getID();
+                size = ct.getSize();
+                quantity = ct.getQuantity();
+                dbconn.removeItems(id, size, quantity);
+            }
+            dbconn.removeCart(empID, custID);
+            dbconn.addRewards(custID, total);
+        }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
         if(manager == false){
             emplMainPanel.setVisible(true);
         }else{
             managerMainPanel.setVisible(true);
         }
+        dbconn.closeDBConnection();
+        showMessageDialog(null, "Your Order is complete!");
+        rewardsCartPanel.setVisible(false);
+        RUOFirstNameText.setText("");
+        RUOLastNameText.setText("");
     }//GEN-LAST:event_cartButtonActionPerformed
 
     private void MIRemoveItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIRemoveItemButtonActionPerformed
@@ -3124,6 +3172,38 @@ public class Main extends javax.swing.JFrame {
 
     private void addButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton1ActionPerformed
         // TODO add your handling code here:
+        String id = cartText1.getText();
+        String size = cartSizeText.getText();
+        int quantity = parseInt((!jTextField8.getText().equals("")) ? jTextField8.getText(): "0");
+        double sum = 0.0;
+        int quan = 0;
+        double tot = 0.0;
+        
+        if(id.equals("") || size.equals("") || quantity == 0){
+            showMessageDialog(null, "A field(s) is empty!");
+        }else{
+            SQLMethods dbconn = new SQLMethods();
+            
+            try{
+                if(dbconn.verifyCart(id, size, quantity)){
+                    ResultSet res = dbconn.addToCart(empID, "none", id, size, quantity);
+                    cartTable1.setModel(DbUtils.resultSetToTableModel(res));
+                    cart = dbconn.getPurchaseCart();
+                    total =  purchase.CreateTotal(cart);
+                    
+                }
+            }catch (SQLException err){
+                System.out.println( err.getMessage( ) );
+            }
+            dbconn.closeDBConnection();
+        }
+        double tax = purchase.CreateTax(cart);
+        jTextField7.setText(Double.toString(total));
+        jTextField5.setText(Double.toString(tax));
+        jTextField6.setText(Double.toString((total) + tax));
+        cartText.setText("");
+        jTextField9.setText("");
+        CRQuantityText.setText("");
     }//GEN-LAST:event_addButton1ActionPerformed
 
     private void cartSizeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartSizeTextActionPerformed
@@ -3142,7 +3222,6 @@ public class Main extends javax.swing.JFrame {
         double sum = 0.0;
         int quan = 0;
         double tot = 0.0;
-        double reward = 0.0;
         
         if(id.equals("") || size.equals("") || quantity == 0){
             showMessageDialog(null, "A field(s) is empty!");
@@ -3155,7 +3234,7 @@ public class Main extends javax.swing.JFrame {
                     cartTable.setModel(DbUtils.resultSetToTableModel(res));
                     //Object[] rowData = {cart.getName(), cart.getCatg(), cart.getQuantity(), cart.getPrice()};
                     cart = dbconn.getPurchaseCart();
-                   reward = dbconn.getRewards(custID);
+                   rewards = dbconn.getRewards(custID);
                     //allCart.add(rowData);
                     //cartTable = new javax.swing.JTable(model);
                     //cartTable.setModel(model);
@@ -3167,11 +3246,11 @@ public class Main extends javax.swing.JFrame {
             }
             dbconn.closeDBConnection();
         }
-        jTextField2.setText(Double.toString(reward));
+        jTextField2.setText(Double.toString(rewards));
         double tax = purchase.CreateTax(cart);
         jTextField1.setText(Double.toString(total));
         jTextField3.setText(Double.toString(tax));
-        jTextField4.setText(Double.toString(total + tax));
+        cartTotalText.setText(Double.toString((total - rewards) + tax));
         cartText.setText("");
         jTextField9.setText("");
         CRQuantityText.setText("");
@@ -3353,6 +3432,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable cartTable1;
     private javax.swing.JTextField cartText;
     private javax.swing.JTextField cartText1;
+    private javax.swing.JTextField cartTotalText;
     private javax.swing.JComboBox catgDropdown;
     private javax.swing.JButton catgSearchButton;
     private javax.swing.JButton continueWithoutButton;
@@ -3407,7 +3487,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;

@@ -488,5 +488,86 @@ public class SQLMethods {
        public ArrayList<Cart> getRemCart(){
            return remove;
        }
+       
+       public void removeItems(String id, String size, int quantity)throws SQLException{
+           PreparedStatement it;
+           
+           it = conn.prepareStatement("UPDATE size SET quantity = (quantity - ?) WHERE item_id = ? and size = ?");
+           it.setInt(1, quantity);
+           it.setString(2, id);
+           it.setString(3, size);
+           
+           it.executeUpdate();
+       }
+       
+       public void removeCart(String empID, String custID)throws SQLException{
+           PreparedStatement it;
+           
+           it = conn.prepareStatement("UPDATE cart SET ordered = ? where emp_id = ? and cust_id = ?");
+           it.setString(1, "Y");
+           it.setString(2, empID);
+           it.setString(3, custID);
+           
+           it.executeUpdate();
+       }
+       
+       public void removeCart(String empID)throws SQLException{
+           PreparedStatement it;
+           
+           it = conn.prepareStatement("UPDATE cart SET ordered = ? where emp_id = ? and cust_id = ?");
+           it.setString(1, "Y");
+           it.setString(2, empID);
+           it.setString(3, "null");
+           
+           it.executeUpdate();
+       }
+       
+       public void setRewards(String custID)throws SQLException{
+           PreparedStatement it;
+           
+           it = conn.prepareStatement("UPDATE customer SET reward_amt = ? WHERE cust_id = ?");
+           it.setDouble(1,0);
+           it.setString(2, custID);
+           
+           it.executeUpdate();
+           
+           
+       }
+       
+       
+       
+       public void addRewards(String custID, double sum)throws SQLException{
+           PreparedStatement it, cm, gt;
+           
+           cm = conn.prepareStatement("UPDATE customer SET sum_orders = (sum_orders + ?) where cust_id = ?");
+           cm.setDouble(1, sum);
+           cm.setString(2, custID);
+           
+           cm.executeUpdate();
+           
+           gt = conn.prepareStatement("select sum_orders from customer where cust_id = ?");
+           gt.setString(1, custID);
+           
+           ResultSet res = gt.executeQuery();
+           int count = 0;
+           res.first();
+           double total = res.getDouble("sum_orders");
+           
+           if(total >= 200){
+               count = count + (int)(total / 200);
+               total = total % 200;
+               cm = conn.prepareStatement("UPDATE customer SET sum_orders = ? where cust_id = ?");
+               cm.setDouble(1, total);
+               cm.setString(2, custID);
+               cm.executeUpdate();
+           }
+           
+           it = conn.prepareStatement("UPDATE customer SET reward_amt = reward_amt + (20 * ?) where cust_id = ?");
+           it.setInt(1, count);
+           it.setString(2, custID);
+           
+           
+           it.executeUpdate();
+       }
 }
 

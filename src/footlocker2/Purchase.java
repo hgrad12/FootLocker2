@@ -93,11 +93,15 @@ public class Purchase {
         
         public double CreateTax(ArrayList<Purchase> myList)
         {
-            for (int i = 0; i < myList.size(); i++)
+            double total = 0.0;
+           for (int i = 0; i < myList.size(); i++)
             {
-                m_total += myList.get(i).GetPrice();
+                for (int j = 0; j < myList.get(i).GetQuantity(); j++)
+                {
+                    total += myList.get(i).GetPrice();
+                }
             }
-            return m_total * (0.06);
+            return total * (0.06);
         }
         
         public void SetItemName(String itemName)
